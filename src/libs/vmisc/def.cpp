@@ -100,10 +100,6 @@ void InitLanguageList(QComboBox *combobox)
         locale.truncate(locale.lastIndexOf('.'));  // "valentina_de_De"
         locale.remove(0, locale.indexOf('_') + 1); // "de_De"
 
-        if (locale.startsWith(QLatin1String("ru")))
-        {
-            continue;
-        }
 
         if (not englishUS)
         {
