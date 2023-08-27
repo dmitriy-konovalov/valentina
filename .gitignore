@@ -169,3 +169,6 @@ __pycache__
 # Temporary svg cursor files
 /src/app/valentina/share/resources/cursor/svg/light/
 /src/app/valentina/share/resources/cursor/svg/dark/
+
+.vscode/*
+!.vscode/extensions.json
