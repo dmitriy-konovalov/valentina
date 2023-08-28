@@ -81,7 +81,7 @@ environment:
       WINDEPLOYQT_BIN_PATH: "undefined"
       DEPLOY: true
       RUN_TESTS: true
-    
+
     - job_name: Windows_Qt_5_6_(GCC_x86)
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       COMPILER: mingw
@@ -251,7 +251,7 @@ environment:
       CHOCOLATEY_PACKAGES: false
       WINDEPLOYQT_BIN_PATH: "undefined"
       DEPLOY: false
-      RUN_TESTS: true 
+      RUN_TESTS: true
 
     - job_name: Windows_Qt_5_15_(make_GCC_x64)
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
@@ -285,7 +285,7 @@ environment:
       ARCH: x64
       XCODE_VERSION: 12.3
       PLATFORM: "macOS_10.13+"
-      DEPLOY: false 
+      DEPLOY: false
 
     - job_name: Windows_Qt_5_6_(MSVC_x64)
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
@@ -333,7 +333,7 @@ matrix:
     - platform: x64
       job_name: Windows_Qt_5_15_(make_GCC_x86)
     - platform: x64
-      job_name: Windows_Qt_5_15_(qbs_GCC_x86)   
+      job_name: Windows_Qt_5_15_(qbs_GCC_x86)
     - platform: x64
       job_name: Windows_Qt_5_6_(GCC_x86)
 
@@ -359,13 +359,13 @@ for:
 
   cache:
     - C:\Users\appveyor\.conan\data -> conan-cache
-  
+
   # scripts that are called at very beginning, before repo cloning
   init:
     # Uncomment if need access through RDP
     #  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
     - ver
-    # Path before 
+    # Path before
     - path
     - set QTDIR=C:\%QT%
     - set QT_PLUGIN_PATH=%QTDIR%\plugins
@@ -390,12 +390,12 @@ for:
               cmd.exe /c "call `"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars32.bat`" && set > %temp%\vcvars.txt"
             }
           }
- 
+
           Get-Content "$env:temp\vcvars.txt" | Foreach-Object {
             if ($_ -match "^(.*?)=(.*)$") {
               Set-Content "env:\$($matches[1])" $matches[2]
             }
-          }  
+          }
         } else {
           if ($env:CHOCOLATEY_PACKAGES -eq "true") {
               & choco install mingw -y --version $env:CHOCOLATEY_MINGW_VERSION
@@ -462,17 +462,21 @@ for:
   build_script:
     - conan install . -s os=Windows --build=missing -pr valentina
     - qbs build -f valentina.qbs -d %APPVEYOR_BUILD_FOLDER%\build --jobs %NUMBER_OF_PROCESSORS% config:release qbs.installRoot:%APPVEYOR_BUILD_FOLDER%\build\install-root\valentina profile:qt6 project.enableConan:true modules.buildconfig.enableCcache:false project.conanProfiles:valentina modules.buildconfig.enablePCH:%ENABLE_PCH% modules.windeployqt.windeployqtProgramBinPath:%WINDEPLOYQT_BIN_PATH%
-  
+
   test_script:
     - path
     - if "%RUN_TESTS%" == "true" (qbs -p autotest-runner -d %APPVEYOR_BUILD_FOLDER%\build profile:qt6 config:release)
 
-  deploy_script:
-    - ps: scripts/appveyor-deploy.ps1
+  #deploy_script:
+  #  - ps: scripts/appveyor-deploy.ps1
 
   on_finish:
     # Uncomment if need access through RDP
     # - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
+  artifacts:
+  # pushing entire folder as a zip archive
+  - path: build\install-root\valentina
 
 # Legacy
 -
@@ -492,7 +496,7 @@ for:
     # Uncomment if need access through RDP
     #  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
     - ver
-    # Path before 
+    # Path before
     - path
     - set QTDIR=C:\%QT%
     - set PATH=%QTDIR%\bin;%QTDIR%\include;C:\Tools\PsTools;C:\Program Files\Git\cmd;C:\Program Files\Git\usr\bin;C:\Program Files\Git LFS;C:\Tools\GitVersion;C:\Windows\system32;C:\Windows;C:\Windows\System32\WindowsPowerShell\v1.0\
@@ -531,7 +535,7 @@ for:
             if ($_ -match "^(.*?)=(.*)$") {
               Set-Content "env:\$($matches[1])" $matches[2]
             }
-          }  
+          }
         }
     - if "%BUILD_SYSTEM%" == "make" set PATH=%MINGW_PATH%;%PATH%
     - if "%BUILD_SYSTEM%" == "nmake" set PATH=C:\Qt\Tools\QtCreator\bin;%PATH%
@@ -563,14 +567,14 @@ for:
   # to run your custom scripts instead of automatic tests
   test_script:
     - if "%BUILD_SYSTEM%" == "make" (mingw32-make -s check TESTARGS="-silent")
-  
+
   # prepare to deploy
   after_test:
     - if "%DEPLOY%" == "true" (mingw32-make install)
 
   # to run your custom scripts instead of provider deployments
-  deploy_script:
-    - ps: ../scripts/appveyor-deploy.ps1
+  #deploy_script:
+  #  - ps: ../scripts/appveyor-deploy.ps1
 
 #---------------------------------#
 #             MacOS               #
@@ -622,8 +626,11 @@ for:
     - qbs config profiles.qt6.baseProfile clang
     - qbs build -f valentina.qbs -d ${APPVEYOR_BUILD_FOLDER}/build --jobs $(nproc) config:release modules.buildconfig.enableUnitTests:false modules.buildconfig.enableMultiBundle:${MULTI_BUNDLE} qbs.installRoot:${APPVEYOR_BUILD_FOLDER}/build/install-root profile:qt6 project.enableConan:true project.minimumMacosVersion:${MACOS_DEPLOYMENT_TARGET} modules.buildconfig.enableCcache:false
 
-  deploy_script:
-    - CIRRUS_WORKING_DIR=${APPVEYOR_BUILD_FOLDER} CIRRUS_CHANGE_IN_REPO=${APPVEYOR_REPO_COMMIT} CIRRUS_BRANCH=${APPVEYOR_REPO_BRANCH} ${APPVEYOR_BUILD_FOLDER}/scripts/cirrus-deploy.sh
+  artifacts:
+  # pushing entire folder as a zip archive
+  - path: build\install-root\usr\local\Applications
+  #deploy_script:
+  #  - CIRRUS_WORKING_DIR=${APPVEYOR_BUILD_FOLDER} CIRRUS_CHANGE_IN_REPO=${APPVEYOR_REPO_COMMIT} CIRRUS_BRANCH=${APPVEYOR_REPO_BRANCH} ${APPVEYOR_BUILD_FOLDER}/scripts/cirrus-deploy.sh
 
 -
   matrix:
@@ -655,13 +662,13 @@ for:
 #---------------------------------#
 #         notifications           #
 #---------------------------------#
-  
-notifications:
-  # Email
-  - provider: Email
-    to:
-      - dismine@gmail.com
-    on_build_success: false
-    on_build_failure: true
-    on_build_status_changed: true
+
+# notifications:
+#   # Email
+#   - provider: Email
+#     to:
+#       - dismine@gmail.com
+#     on_build_success: false
+#     on_build_failure: true
+#     on_build_status_changed: true
 
