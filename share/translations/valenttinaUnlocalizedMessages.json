@@ -1,0 +1,1486 @@
+[
+    {
+        "context": "DRW_TextCodec",
+        "messageSource": "No available codec for code page '%1'."
+    },
+    {
+        "context": "DialogAskCollectStatistic",
+        "messageSource": "Privacy"
+    },
+    {
+        "context": "DialogAskCollectStatistic",
+        "messageSource": "Send usage statistics"
+    },
+    {
+        "context": "DialogAskCollectStatistic",
+        "messageSource": "Please help to improve Valentina's quality by automatically sending usage statistics. Sent data contains <span style=\" font-weight:700;\">no potentially sensitive information</span> like user names, email addresses, file contents or file paths."
+    },
+    {
+        "context": "DialogEditLabel",
+        "messageSource": "Area units"
+    },
+    {
+        "context": "DialogEditLabel",
+        "messageSource": "Piece full area"
+    },
+    {
+        "context": "DialogEditLabel",
+        "messageSource": "Piece seam line area"
+    },
+    {
+        "context": "DialogEditWrongFormula",
+        "messageSource": "Pieces areas"
+    },
+    {
+        "context": "DialogEditWrongFormula",
+        "messageSource": "Length to control point"
+    },
+    {
+        "context": "DialogEditWrongFormula",
+        "messageSource": "Area of piece"
+    },
+    {
+        "context": "DialogEllipticalArc",
+        "messageSource": "Dialog"
+    },
+    {
+        "context": "DialogEllipticalArc",
+        "messageSource": "Error"
+    },
+    {
+        "context": "DialogEllipticalArc",
+        "messageSource": "Radius can't be negative"
+    },
+    {
+        "context": "DialogEllipticalArc",
+        "messageSource": "Angles equal"
+    },
+    {
+        "context": "DialogEllipticalArc",
+        "messageSource": "Approximation scale:"
+    },
+    {
+        "context": "DialogEllipticalArc",
+        "messageSource": "Set approximation scale for this curve, 0 - use global value"
+    },
+    {
+        "context": "DialogFinalMeasurements",
+        "messageSource": "Find:"
+    },
+    {
+        "context": "DialogFlippingByAxis",
+        "messageSource": "Enable to create a visibility group from original objects"
+    },
+    {
+        "context": "DialogFlippingByLine",
+        "messageSource": "Enable to create a visibility group from original objects"
+    },
+    {
+        "context": "DialogIncrements",
+        "messageSource": "Units:"
+    },
+    {
+        "context": "DialogIncrements",
+        "messageSource": "Millimeters"
+    },
+    {
+        "context": "DialogIncrements",
+        "messageSource": "Inches"
+    },
+    {
+        "context": "DialogIncrements",
+        "messageSource": "Centimeters"
+    },
+    {
+        "context": "DialogIncrements",
+        "messageSource": "Degrees"
+    },
+    {
+        "context": "DialogLayoutScale",
+        "messageSource": "..."
+    },
+    {
+        "context": "DialogMove",
+        "messageSource": "Enable to create a visibility group from original objects"
+    },
+    {
+        "context": "DialogPatternProperties",
+        "messageSource": "Passmark width:"
+    },
+    {
+        "context": "DialogPatternProperties",
+        "messageSource": "Default piece label template"
+    },
+    {
+        "context": "DialogPatternProperties",
+        "messageSource": "Path to default label template"
+    },
+    {
+        "context": "DialogPatternProperties",
+        "messageSource": "Select path to label template"
+    },
+    {
+        "context": "DialogPatternProperties",
+        "messageSource": "Browse…"
+    },
+    {
+        "context": "DialogPatternProperties",
+        "messageSource": "Label template"
+    },
+    {
+        "context": "DialogPatternProperties",
+        "messageSource": "yyyy-MM-dd"
+    },
+    {
+        "context": "DialogPiecePath",
+        "messageSource": "Edit passmark width"
+    },
+    {
+        "context": "DialogPiecePath",
+        "messageSource": "Edit passmark angle"
+    },
+    {
+        "context": "DialogPiecePath",
+        "messageSource": "Lines"
+    },
+    {
+        "context": "DialogPiecePath",
+        "messageSource": "Type"
+    },
+    {
+        "context": "DialogPiecePath",
+        "messageSource": "Check mark"
+    },
+    {
+        "context": "DialogPiecePath",
+        "messageSource": "Clockwise opening"
+    },
+    {
+        "context": "DialogPiecePath",
+        "messageSource": "Manual shape"
+    },
+    {
+        "context": "DialogPiecePath",
+        "messageSource": "Length"
+    },
+    {
+        "context": "DialogPiecePath",
+        "messageSource": "Width"
+    },
+    {
+        "context": "DialogPiecePath",
+        "messageSource": "Turn point"
+    },
+    {
+        "context": "DialogPin",
+        "messageSource": "Dialog"
+    },
+    {
+        "context": "DialogPlaceLabel",
+        "messageSource": "Dialog"
+    },
+    {
+        "context": "DialogRotation",
+        "messageSource": "Enable to create a visibility group from original objects"
+    },
+    {
+        "context": "DialogSaveLAyout",
+        "messageSource": "Show grainline"
+    },
+    {
+        "context": "DialogSaveLAyout",
+        "messageSource": "Not available"
+    },
+    {
+        "context": "DialogSaveLAyout",
+        "messageSource": "..."
+    },
+    {
+        "context": "DialogSaveManualLayout",
+        "messageSource": "Dialog"
+    },
+    {
+        "context": "DialogSaveManualLayout",
+        "messageSource": "Not available"
+    },
+    {
+        "context": "DialogSaveManualLayout",
+        "messageSource": "Show grainline"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Seam allowance tool"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "All objects in path should follow in clockwise direction."
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Forbid piece be mirrored in a layout."
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Forbid flipping"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Seam allowance"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Width:"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Formula wizard"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Calculation"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "<html><head/><body><p>Show full calculation in message box</p></body></html>"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Default"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Angle:"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Custom"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Pattern piece data"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Letter:"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Letter of pattern piece"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Name of detail:"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Name can't be empty"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Material/Cut number/Placement"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Cut number:"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Material type:"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "You can choose one of the predefined materials or enter a new one"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Placement:"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Add"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Cancel"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Remove"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Detail label visible"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Pattern label visible"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Grainline visible"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Rotation:"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Length:"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Arrows:"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Cut %1 of %2%3"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "on Fold"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Update"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Edit passmark width"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Edit passmark angle"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "None"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Cut on fold"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Height:"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Two ways (Up/Down)"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "One way (Up)"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "One way (Down)"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Four ways"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Two ways (Up/Left)"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Two ways (Up/Right)"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Two ways (Down/Left)"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Two ways (Down/Right)"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Three ways (Up/Down/Left)"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Three ways (Up/Down/Right)"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Three ways (Up/Left/Right)"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Three ways (Down/Left/Right)"
+    },
+    {
+        "context": "DialogSeamAllowance",
+        "messageSource": "Turn point"
+    },
+    {
+        "context": "DialogSetupMultisize",
+        "messageSource": "Height"
+    },
+    {
+        "context": "DialogSetupMultisize",
+        "messageSource": "Size"
+    },
+    {
+        "context": "DialogSetupMultisize",
+        "messageSource": "A body measurement measured in units of length."
+    },
+    {
+        "context": "DialogSetupMultisize",
+        "messageSource": "Body Measurement"
+    },
+    {
+        "context": "DialogSetupMultisize",
+        "messageSource": "A body measurement measured in units of length. Circumference."
+    },
+    {
+        "context": "DialogUnionDetails",
+        "messageSource": "Select unique detail"
+    },
+    {
+        "context": "InitPieceLabelLanguages",
+        "messageSource": "Default"
+    },
+    {
+        "context": "MApplication",
+        "messageSource": "Test mode doesn't support opening several files."
+    },
+    {
+        "context": "MainWindow",
+        "messageSource": "Point tools"
+    },
+    {
+        "context": "MainWindow",
+        "messageSource": "Tools for creating points"
+    },
+    {
+        "context": "MainWindow",
+        "messageSource": "Selecting tools"
+    },
+    {
+        "context": "MainWindow",
+        "messageSource": "Line tools"
+    },
+    {
+        "context": "MainWindow",
+        "messageSource": "Tools for creating segments"
+    },
+    {
+        "context": "MainWindow",
+        "messageSource": "Curve tools"
+    },
+    {
+        "context": "MainWindow",
+        "messageSource": "Tools for creating curves"
+    },
+    {
+        "context": "MainWindow",
+        "messageSource": "Operation tools"
+    },
+    {
+        "context": "MainWindow",
+        "messageSource": "Detail tools"
+    },
+    {
+        "context": "MainWindow",
+        "messageSource": "Tools for creating detail"
+    },
+    {
+        "context": "MainWindow",
+        "messageSource": "Layout actions"
+    },
+    {
+        "context": "MainWindow",
+        "messageSource": "Interactive tools"
+    },
+    {
+        "context": "MainWindow",
+        "messageSource": "Ctrl+D"
+    },
+    {
+        "context": "MainWindow",
+        "messageSource": "Export font corrections"
+    },
+    {
+        "context": "MainWindow",
+        "messageSource": "Tool \"Select\""
+    },
+    {
+        "context": "MainWindow",
+        "messageSource": "Layout settings"
+    },
+    {
+        "context": "MainWindow",
+        "messageSource": "Layout export as"
+    },
+    {
+        "context": "MainWindow",
+        "messageSource": "..."
+    },
+    {
+        "context": "MainWindow",
+        "messageSource": "Select folder"
+    },
+    {
+        "context": "MainWindow",
+        "messageSource": "The pattern has been modified. Do you want to save your changes?"
+    },
+    {
+        "context": "MainWindow",
+        "messageSource": "Visibility group"
+    },
+    {
+        "context": "MainWindow",
+        "messageSource": "Show accuracy radius"
+    },
+    {
+        "context": "MainWindowsNoGUI",
+        "messageSource": "Wrong units."
+    },
+    {
+        "context": "Placeholder",
+        "messageSource": "Fabric"
+    },
+    {
+        "context": "Placeholder",
+        "messageSource": "Lining"
+    },
+    {
+        "context": "Placeholder",
+        "messageSource": "Interfacing"
+    },
+    {
+        "context": "Placeholder",
+        "messageSource": "Interlining"
+    },
+    {
+        "context": "Placeholder",
+        "messageSource": "Cut"
+    },
+    {
+        "context": "Placeholder",
+        "messageSource": "on fold"
+    },
+    {
+        "context": "PreferencesConfigurationPage",
+        "messageSource": "Send crash reports"
+    },
+    {
+        "context": "PreferencesConfigurationPage",
+        "messageSource": "Send crash reports (recommended)"
+    },
+    {
+        "context": "PreferencesConfigurationPage",
+        "messageSource": "After each crash Valentina collects information that may help us fix the problem. We do not collect any personal information. Find more about what %1kind of information%2 we collect."
+    },
+    {
+        "context": "PreferencesConfigurationPage",
+        "messageSource": "The Default unit has been updated and will be used as the default for the next pattern you create."
+    },
+    {
+        "context": "PreferencesConfigurationPage",
+        "messageSource": "System"
+    },
+    {
+        "context": "PreferencesConfigurationPage",
+        "messageSource": "Dark"
+    },
+    {
+        "context": "PreferencesConfigurationPage",
+        "messageSource": "Light"
+    },
+    {
+        "context": "PreferencesConfigurationPage",
+        "messageSource": "Piece label language:"
+    },
+    {
+        "context": "PreferencesConfigurationPage",
+        "messageSource": "Toolbox icon size:"
+    },
+    {
+        "context": "PreferencesConfigurationPage",
+        "messageSource": "Small"
+    },
+    {
+        "context": "PreferencesConfigurationPage",
+        "messageSource": "Normal"
+    },
+    {
+        "context": "PreferencesConfigurationPage",
+        "messageSource": "Theme:"
+    },
+    {
+        "context": "PreferencesConfigurationPage",
+        "messageSource": "Privacy"
+    },
+    {
+        "context": "PreferencesConfigurationPage",
+        "messageSource": "Send usage statistics"
+    },
+    {
+        "context": "PreferencesConfigurationPage",
+        "messageSource": "Please help to improve Valentina's quality by automatically sending usage statistics. Sent data contains <span style=\" font-weight:700;\">no potentially sensitive information</span> like user names, email addresses, file contents or file paths."
+    },
+    {
+        "context": "PreferencesConfigurationPage",
+        "messageSource": "Disable if you want to skip interactive part of creating tools. And go straight to editing formulas instead."
+    },
+    {
+        "context": "PreferencesConfigurationPage",
+        "messageSource": "Interactive tools"
+    },
+    {
+        "context": "PreferencesPathPage",
+        "messageSource": "My SVG Fonts"
+    },
+    {
+        "context": "PreferencesPathPage",
+        "messageSource": "My font corrections"
+    },
+    {
+        "context": "PreferencesPatternPage",
+        "messageSource": "User"
+    },
+    {
+        "context": "PreferencesPatternPage",
+        "messageSource": "User name:"
+    },
+    {
+        "context": "PreferencesPatternPage",
+        "messageSource": "User defined materials"
+    },
+    {
+        "context": "PreferencesPatternPage",
+        "messageSource": "Delete all"
+    },
+    {
+        "context": "PreferencesPatternPage",
+        "messageSource": "All user defined materials have been deleted!"
+    },
+    {
+        "context": "PreferencesPatternPage",
+        "messageSource": "Size:"
+    },
+    {
+        "context": "PreferencesPatternPage",
+        "messageSource": "Font"
+    },
+    {
+        "context": "PreferencesPatternPage",
+        "messageSource": "Outline font:"
+    },
+    {
+        "context": "PreferencesPatternPage",
+        "messageSource": "Single-line font:"
+    },
+    {
+        "context": "PreferencesPatternPage",
+        "messageSource": "Allow single stroke outline fonts"
+    },
+    {
+        "context": "PreferencesPatternPage",
+        "messageSource": "When this option is activated, the application will utilize SVG Fonts present in your system to render piece label text, instead of using outline fonts. "
+    },
+    {
+        "context": "PreferencesPatternPage",
+        "messageSource": "Use single-line fonts"
+    },
+    {
+        "context": "PreferencesPatternPage",
+        "messageSource": "By default export to DXF-AAMA sew line on Draw layer for all new created workpieces"
+    },
+    {
+        "context": "PreferencesPatternPage",
+        "messageSource": "Sew line on drawing"
+    },
+    {
+        "context": "PuzzlePreferencesConfigurationPage",
+        "messageSource": "Form"
+    },
+    {
+        "context": "PuzzlePreferencesConfigurationPage",
+        "messageSource": "Theme:"
+    },
+    {
+        "context": "PuzzlePreferencesConfigurationPage",
+        "messageSource": "Font"
+    },
+    {
+        "context": "PuzzlePreferencesConfigurationPage",
+        "messageSource": "Allow single stroke outline fonts"
+    },
+    {
+        "context": "PuzzlePreferencesConfigurationPage",
+        "messageSource": "When this option is activated, the application will utilize SVG Fonts present in your system to render piece label text, instead of using outline fonts. "
+    },
+    {
+        "context": "PuzzlePreferencesConfigurationPage",
+        "messageSource": "Use single-line fonts"
+    },
+    {
+        "context": "PuzzlePreferencesConfigurationPage",
+        "messageSource": "Privacy"
+    },
+    {
+        "context": "PuzzlePreferencesConfigurationPage",
+        "messageSource": "Send usage statistics"
+    },
+    {
+        "context": "PuzzlePreferencesConfigurationPage",
+        "messageSource": "Please help to improve Valentina's quality by automatically sending usage statistics. Sent data contains <span style=\" font-weight:700;\">no potentially sensitive information</span> like user names, email addresses, file contents or file paths."
+    },
+    {
+        "context": "PuzzlePreferencesConfigurationPage",
+        "messageSource": "System"
+    },
+    {
+        "context": "PuzzlePreferencesConfigurationPage",
+        "messageSource": "Dark"
+    },
+    {
+        "context": "PuzzlePreferencesConfigurationPage",
+        "messageSource": "Light"
+    },
+    {
+        "context": "PuzzlePreferencesLayoutPage",
+        "messageSource": "Form"
+    },
+    {
+        "context": "PuzzlePreferencesPathPage",
+        "messageSource": "Form"
+    },
+    {
+        "context": "PuzzlePreferencesPathPage",
+        "messageSource": "My SVG Fonts"
+    },
+    {
+        "context": "QCoreApplication",
+        "messageSource": "VLayoutPieceData prefix mismatch error: actualStreamHeader = 0x%1 and streamHeader = 0x%2"
+    },
+    {
+        "context": "QCoreApplication",
+        "messageSource": "VLayoutPieceData compatibility error: actualClassVersion = %1 and classVersion = %2"
+    },
+    {
+        "context": "QCoreApplication",
+        "messageSource": "VPieceGrainlinePrivate prefix mismatch error: actualStreamHeader = 0x%1 and streamHeader = 0x%2"
+    },
+    {
+        "context": "QCoreApplication",
+        "messageSource": "VPieceGrainlinePrivate compatibility error: actualClassVersion = %1 and classVersion = %2"
+    },
+    {
+        "context": "QObject",
+        "messageSource": "Error: notch for point '%1' in piece '%2'. Width is less than minimal allowed."
+    },
+    {
+        "context": "QObject",
+        "messageSource": "Cannot calculate passmark width for point '%1'. Reason: %2."
+    },
+    {
+        "context": "QObject",
+        "messageSource": "Cannot calculate passmark angle for point '%1'. Reason: %2."
+    },
+    {
+        "context": "QObject",
+        "messageSource": "Failed to prepare full piece area placeholder. %1."
+    },
+    {
+        "context": "QObject",
+        "messageSource": "Failed to prepare piece seam line area placeholder. %1."
+    },
+    {
+        "context": "QObject",
+        "messageSource": "Piece '%1'. Unable to load default piece label template.\n%2\n%3"
+    },
+    {
+        "context": "QObject",
+        "messageSource": "Curve '%1'. Length of a cut segment (%2) is too small. Optimize it to minimal value."
+    },
+    {
+        "context": "QObject",
+        "messageSource": "Curve '%1'. Length of a cut segment (%2) is too big. Optimize it to maximal value."
+    },
+    {
+        "context": "QObject",
+        "messageSource": "Piece '%1'. Internal path '%2' intersects with internal path '%3'."
+    },
+    {
+        "context": "QObject",
+        "messageSource": "Piece '%1'. Internal path '%2' intersects with cutting contour."
+    },
+    {
+        "context": "QObject",
+        "messageSource": "Invalid global value for a passmark width. Piece '%1'. Width is less than minimal allowed."
+    },
+    {
+        "context": "QObject",
+        "messageSource": "Piece '%1'. Internal path '%2' not inside of cutting contour."
+    },
+    {
+        "context": "QObject",
+        "messageSource": "Error in internal path '%1'. There is no intersection of first point with cutting contour"
+    },
+    {
+        "context": "QObject",
+        "messageSource": "Error in internal path '%1'. There is no intersection of last point with cutting contour"
+    },
+    {
+        "context": "QObject",
+        "messageSource": "Unknown"
+    },
+    {
+        "context": "SavePieceOptions",
+        "messageSource": "save detail option"
+    },
+    {
+        "context": "T",
+        "messageSource": "Options"
+    },
+    {
+        "context": "T",
+        "messageSource": "Delete"
+    },
+    {
+        "context": "TMainWindow",
+        "messageSource": "Measurements have been modified. Do you want to save your changes?"
+    },
+    {
+        "context": "TMainWindow",
+        "messageSource": "Measurement name is empty."
+    },
+    {
+        "context": "TMainWindow",
+        "messageSource": "Measurement '%1' doesn't match regex pattern."
+    },
+    {
+        "context": "TMainWindow",
+        "messageSource": "Measurement '%1' already used in the file."
+    },
+    {
+        "context": "TMainWindow",
+        "messageSource": "Measurement '%1' is not one of the known measurements."
+    },
+    {
+        "context": "TMainWindow",
+        "messageSource": "Measurement '%1' already used in file."
+    },
+    {
+        "context": "TMainWindow",
+        "messageSource": "Error in row %1. The measurement name is empty."
+    },
+    {
+        "context": "TMainWindow",
+        "messageSource": "The measurement name is empty."
+    },
+    {
+        "context": "TMainWindow",
+        "messageSource": "Error in row %1. %2"
+    },
+    {
+        "context": "TabGrainline",
+        "messageSource": "Form"
+    },
+    {
+        "context": "TabLabels",
+        "messageSource": "Form"
+    },
+    {
+        "context": "TabLabels",
+        "messageSource": "Name of detail:"
+    },
+    {
+        "context": "TabLabels",
+        "messageSource": "Detail"
+    },
+    {
+        "context": "TabLabels",
+        "messageSource": "Name can't be empty"
+    },
+    {
+        "context": "TabLabels",
+        "messageSource": "Material/Cut number/Placement"
+    },
+    {
+        "context": "TabLabels",
+        "messageSource": "Cut number:"
+    },
+    {
+        "context": "TabLabels",
+        "messageSource": "Material type:"
+    },
+    {
+        "context": "TabLabels",
+        "messageSource": "You can choose one of the predefined materials or enter a new one"
+    },
+    {
+        "context": "TabLabels",
+        "messageSource": "Add"
+    },
+    {
+        "context": "TabLabels",
+        "messageSource": "Cancel"
+    },
+    {
+        "context": "TabLabels",
+        "messageSource": "Remove"
+    },
+    {
+        "context": "TabLabels",
+        "messageSource": "Detail label visible"
+    },
+    {
+        "context": "TabLabels",
+        "messageSource": "Font size:"
+    },
+    {
+        "context": "TabPassmarks",
+        "messageSource": "Form"
+    },
+    {
+        "context": "TabPassmarks",
+        "messageSource": "Lines"
+    },
+    {
+        "context": "TabPassmarks",
+        "messageSource": "Clockwise opening"
+    },
+    {
+        "context": "TabPassmarks",
+        "messageSource": "Manual shape"
+    },
+    {
+        "context": "TabPassmarks",
+        "messageSource": "Length"
+    },
+    {
+        "context": "TabPassmarks",
+        "messageSource": "Width"
+    },
+    {
+        "context": "TabPassmarks",
+        "messageSource": "Width:"
+    },
+    {
+        "context": "TabPassmarks",
+        "messageSource": "Angle:"
+    },
+    {
+        "context": "TabPassmarks",
+        "messageSource": "Type"
+    },
+    {
+        "context": "TabPassmarks",
+        "messageSource": "External V mark"
+    },
+    {
+        "context": "TabPassmarks",
+        "messageSource": "Internal V mark"
+    },
+    {
+        "context": "TabPassmarks",
+        "messageSource": "Check mark"
+    },
+    {
+        "context": "TabPaths",
+        "messageSource": "Form"
+    },
+    {
+        "context": "TabPaths",
+        "messageSource": "On drawing"
+    },
+    {
+        "context": "TabPaths",
+        "messageSource": "Short name:"
+    },
+    {
+        "context": "TabPaths",
+        "messageSource": "Name used to generate a variable"
+    },
+    {
+        "context": "TabPaths",
+        "messageSource": "Export to DXF-AAMA sew line on Draw layer"
+    },
+    {
+        "context": "TabPins",
+        "messageSource": "Form"
+    },
+    {
+        "context": "TapePreferencesConfigurationPage",
+        "messageSource": "General"
+    },
+    {
+        "context": "TapePreferencesConfigurationPage",
+        "messageSource": "Theme:"
+    },
+    {
+        "context": "TapePreferencesConfigurationPage",
+        "messageSource": "Privacy"
+    },
+    {
+        "context": "TapePreferencesConfigurationPage",
+        "messageSource": "Send usage statistics"
+    },
+    {
+        "context": "TapePreferencesConfigurationPage",
+        "messageSource": "Please help to improve Valentina's quality by automatically sending usage statistics. Sent data contains <span style=\" font-weight:700;\">no potentially sensitive information</span> like user names, email addresses, file contents or file paths."
+    },
+    {
+        "context": "TapePreferencesConfigurationPage",
+        "messageSource": "Default height and size"
+    },
+    {
+        "context": "TapePreferencesConfigurationPage",
+        "messageSource": "Default height:"
+    },
+    {
+        "context": "TapePreferencesConfigurationPage",
+        "messageSource": "Default size:"
+    },
+    {
+        "context": "TapePreferencesConfigurationPage",
+        "messageSource": "System"
+    },
+    {
+        "context": "TapePreferencesConfigurationPage",
+        "messageSource": "Dark"
+    },
+    {
+        "context": "TapePreferencesConfigurationPage",
+        "messageSource": "Light"
+    },
+    {
+        "context": "Tool",
+        "messageSource": "First point"
+    },
+    {
+        "context": "Tool",
+        "messageSource": "Second point"
+    },
+    {
+        "context": "Tool",
+        "messageSource": "Highest point"
+    },
+    {
+        "context": "Tool",
+        "messageSource": "Lowest point"
+    },
+    {
+        "context": "Tool",
+        "messageSource": "Leftmost point"
+    },
+    {
+        "context": "Tool",
+        "messageSource": "Rightmost point"
+    },
+    {
+        "context": "Tool",
+        "messageSource": "Vertical axis"
+    },
+    {
+        "context": "Tool",
+        "messageSource": "Horizontal axis"
+    },
+    {
+        "context": "VAbstartMeasurementDimension",
+        "messageSource": "Units are invalid"
+    },
+    {
+        "context": "VAbstractConverter",
+        "messageSource": "Schema file %3 invalid in line %1 column %2"
+    },
+    {
+        "context": "VAbstractConverter",
+        "messageSource": "Error opening a temp file: %1."
+    },
+    {
+        "context": "VAbstractCubicBezierPath",
+        "messageSource": "Unable to cut curve '%1'. The curve is too short."
+    },
+    {
+        "context": "VAbstractCubicBezierPath",
+        "messageSource": "Curve '%1'. Length of a cut segment (%2) is too small. Optimize it to minimal value."
+    },
+    {
+        "context": "VAbstractCubicBezierPath",
+        "messageSource": "Curve '%1'. Length of a cut segment is too small. Optimize it to minimal value."
+    },
+    {
+        "context": "VAbstractCubicBezierPath",
+        "messageSource": "Curve '%1'. Length of a cut segment (%2) is too big. Optimize it to maximal value."
+    },
+    {
+        "context": "VAbstractCubicBezierPath",
+        "messageSource": "Curve '%1'. Length of a cut segment is too big. Optimize it to maximal value."
+    },
+    {
+        "context": "VAbstractMainWindow",
+        "messageSource": "Do you want to change the permissions?"
+    },
+    {
+        "context": "VAbstractPattern",
+        "messageSource": "Wrong tag name '%1'."
+    },
+    {
+        "context": "VArc",
+        "messageSource": "Unable to cut curve '%1'. The curve is too short."
+    },
+    {
+        "context": "VArc",
+        "messageSource": "Curve '%1'. Length of a cut segment (%2) is too small. Optimize it to minimal value."
+    },
+    {
+        "context": "VArc",
+        "messageSource": "Curve '%1'. Length of a cut segment is too small. Optimize it to minimal value."
+    },
+    {
+        "context": "VArc",
+        "messageSource": "Curve '%1'. Length of a cut segment (%2) is too big. Optimize it to maximal value."
+    },
+    {
+        "context": "VArc",
+        "messageSource": "Curve '%1'. Length of a cut segment is too big. Optimize it to maximal value."
+    },
+    {
+        "context": "VBackgroundPatternImage",
+        "messageSource": "Content type mismatch."
+    },
+    {
+        "context": "VBank",
+        "messageSource": "Error of preparing data for layout: Detail '%1' square <= 0"
+    },
+    {
+        "context": "VBank",
+        "messageSource": "Error of preparing data for layout: Layout paper sheet <= 0"
+    },
+    {
+        "context": "VBank",
+        "messageSource": "Error of preparing data for layout: List of details is empty"
+    },
+    {
+        "context": "VCommandLine",
+        "messageSource": "Show/hide grainline when export layout."
+    },
+    {
+        "context": "VCommandLine",
+        "messageSource": "Load pattern pieces from the raw layout data file."
+    },
+    {
+        "context": "VCommandLine",
+        "messageSource": "Ignore printer margins (export mode). Use if need full paper space. In case of later printing you must account for the margins themselves."
+    },
+    {
+        "context": "VCommonSettings",
+        "messageSource": "svg fonts"
+    },
+    {
+        "context": "VCommonSettings",
+        "messageSource": "font corrections"
+    },
+    {
+        "context": "VInteractiveTool",
+        "messageSource": "Options"
+    },
+    {
+        "context": "VLayoutExporter",
+        "messageSource": "Can't create an HP-GL file."
+    },
+    {
+        "context": "VLayoutExporter",
+        "messageSource": "Can't create a flat dxf file."
+    },
+    {
+        "context": "VLayoutPiece",
+        "messageSource": "Invalid SVG font '%1'. Fallback to outline font."
+    },
+    {
+        "context": "VMeasurements",
+        "messageSource": "Dimension is not valid"
+    },
+    {
+        "context": "VNodePoint",
+        "messageSource": "Angle"
+    },
+    {
+        "context": "VNodePoint",
+        "messageSource": "Reset piece label template"
+    },
+    {
+        "context": "VNodePoint",
+        "messageSource": "External V mark"
+    },
+    {
+        "context": "VNodePoint",
+        "messageSource": "Internal V mark"
+    },
+    {
+        "context": "VNodePoint",
+        "messageSource": "Check mark"
+    },
+    {
+        "context": "VNodePoint",
+        "messageSource": "Turn point"
+    },
+    {
+        "context": "VPApplication",
+        "messageSource": "Export mode doesn't support opening several files."
+    },
+    {
+        "context": "VPApplication",
+        "messageSource": "Import raw layout data does not support opening several layout files."
+    },
+    {
+        "context": "VPLayoutFileReader",
+        "messageSource": "Error in line %1. Grainline main line is empty."
+    },
+    {
+        "context": "VPLayoutFileReader",
+        "messageSource": "Piece %1 invalid. %2"
+    },
+    {
+        "context": "VPMainWindow",
+        "messageSource": "Width"
+    },
+    {
+        "context": "VPMainWindow",
+        "messageSource": "Length"
+    },
+    {
+        "context": "VPMainWindow",
+        "messageSource": "Name"
+    },
+    {
+        "context": "VPMainWindow",
+        "messageSource": "Layout has been modified. Do you want to save your changes?"
+    },
+    {
+        "context": "VPMainWindow",
+        "messageSource": "Has effect only when print in application. To export with tiles scheme use separate setting"
+    },
+    {
+        "context": "VPMainWindow",
+        "messageSource": "sheet"
+    },
+    {
+        "context": "VPMainWindow",
+        "messageSource": "Piece %1 invalid. %2"
+    },
+    {
+        "context": "VPPiece",
+        "messageSource": "Seam line is empty"
+    },
+    {
+        "context": "VPPiece",
+        "messageSource": "Seam allowance line is empty"
+    },
+    {
+        "context": "VPPiece",
+        "messageSource": "Grainline is empty"
+    },
+    {
+        "context": "VPSheet",
+        "messageSource": "Letter"
+    },
+    {
+        "context": "VPSheet",
+        "messageSource": "Legal"
+    },
+    {
+        "context": "VPSheet",
+        "messageSource": "Roll 24in"
+    },
+    {
+        "context": "VPSheet",
+        "messageSource": "Roll 30in"
+    },
+    {
+        "context": "VPSheet",
+        "messageSource": "Roll 36in"
+    },
+    {
+        "context": "VPSheet",
+        "messageSource": "Roll 42in"
+    },
+    {
+        "context": "VPSheet",
+        "messageSource": "Roll 44in"
+    },
+    {
+        "context": "VPSheet",
+        "messageSource": "Roll 48in"
+    },
+    {
+        "context": "VPSheet",
+        "messageSource": "Roll 62in"
+    },
+    {
+        "context": "VPSheet",
+        "messageSource": "Roll 72in"
+    },
+    {
+        "context": "VPSheet",
+        "messageSource": "Custom"
+    },
+    {
+        "context": "VPattern",
+        "messageSource": "Error creating or updating place label"
+    },
+    {
+        "context": "VPattern",
+        "messageSource": "Can't find increment '%1'"
+    },
+    {
+        "context": "VPatternImage",
+        "messageSource": "Content type mismatch."
+    },
+    {
+        "context": "VSingleLineOutlineChar",
+        "messageSource": "Failed to open file for writing."
+    },
+    {
+        "context": "VSvgFontReader",
+        "messageSource": "Incorrect file"
+    },
+    {
+        "context": "VSvgFontReader",
+        "messageSource": "Unexpected tag %1 in line %2"
+    },
+    {
+        "context": "VTapeSettings",
+        "messageSource": "templates"
+    },
+    {
+        "context": "VTextGraphicsItem",
+        "messageSource": "Invalid SVG font '%1'. Fallback to outline font."
+    },
+    {
+        "context": "VTextGraphicsItem",
+        "messageSource": "Piece '%1'. Not enough space for pattern info label."
+    },
+    {
+        "context": "VTextGraphicsItem",
+        "messageSource": "Piece '%1'. Not enough space for piece info label."
+    },
+    {
+        "context": "VTextGraphicsItem",
+        "messageSource": "Piece '%1'. Not enough space for label."
+    },
+    {
+        "context": "VToolCut",
+        "messageSource": "Length"
+    },
+    {
+        "context": "VToolSeamAllowance",
+        "messageSource": "Reset piece label template"
+    },
+    {
+        "context": "VTranslateVars",
+        "messageSource": "PieceArea_"
+    },
+    {
+        "context": "VTranslateVars",
+        "messageSource": "PieceSeamLineArea_"
+    },
+    {
+        "context": "VValentinaSettings",
+        "messageSource": "label templates"
+    },
+    {
+        "context": "VisToolAlongLine",
+        "messageSource": "Length = %1%2; <b>Mouse click</b> - finish selecting the length, <b>%3</b> - skip"
+    },
+    {
+        "context": "VisToolArc",
+        "messageSource": "<b>Arc</b>: radius = %1%2; <b>Mouse click</b> - finish selecting the radius, <b>%3</b> - skip"
+    },
+    {
+        "context": "VisToolArc",
+        "messageSource": "<b>Arc</b>: radius = %1%2, first angle = %3°; <b>Mouse click</b> - finish selecting the first angle, <b>%4</b> - sticking angle, <b>%5</b> - skip"
+    },
+    {
+        "context": "VisToolArc",
+        "messageSource": "<b>Arc</b>: radius = %1%2, first angle = %3°, second angle = %4°; <b>Mouse click</b> - finish creating, <b>%5</b> - sticking angle, <b>%6</b> - sticking end, <b>%7</b> - skip"
+    },
+    {
+        "context": "VisToolArcWithLength",
+        "messageSource": "<b>Arc</b>: radius = %1%2; <b>Mouse click</b> - finish selecting the radius, <b>%3</b> - skip"
+    },
+    {
+        "context": "VisToolArcWithLength",
+        "messageSource": "<b>Arc</b>: radius = %1%2, first angle = %3°; <b>Mouse click</b> - finish selecting the first angle, <b>%4</b> - sticking angle, <b>%5</b> - skip"
+    },
+    {
+        "context": "VisToolArcWithLength",
+        "messageSource": "<b>Arc</b>: radius = %1%2, first angle = %3°, arc length = %4%2; <b>Mouse click</b> - finish creating, <b>%5</b> - skip"
+    },
+    {
+        "context": "VisToolBisector",
+        "messageSource": "Length = %1%2; <b>Mouse click</b> - finish selecting the length, <b>%3</b> - skip"
+    },
+    {
+        "context": "VisToolCutArc",
+        "messageSource": "Length = %1%2; <b>Mouse click</b> - finish selecting the length, <b>%3</b> - skip"
+    },
+    {
+        "context": "VisToolCutSpline",
+        "messageSource": "Length = %1%2; <b>Mouse click</b> - finish selecting the length, <b>%3</b> - skip"
+    },
+    {
+        "context": "VisToolCutSplinePath",
+        "messageSource": "Length = %1%2; <b>Mouse click</b> - finish selecting the length, <b>%3</b> - skip"
+    },
+    {
+        "context": "VisToolEllipticalArc",
+        "messageSource": "<b>Elliptical arc</b>: radius1 = %1%2; <b>Mouse click</b> - finish selecting the first radius, <b>%3</b> - skip"
+    },
+    {
+        "context": "VisToolEllipticalArc",
+        "messageSource": "<b>Elliptical arc</b>: radius1 = %1%2, radius2 = %3%2; <b>Mouse click</b> - finish selecting the second radius, <b>%4</b> - skip"
+    },
+    {
+        "context": "VisToolEllipticalArc",
+        "messageSource": "<b>Elliptical arc</b>: radius1 = %1%2, radius2 = %3%2, angle1 = %4°; <b>Mouse click</b> - finish selecting the second radius, <b>%5</b> - sticking angle, <b>%6</b> - skip"
+    },
+    {
+        "context": "VisToolEllipticalArc",
+        "messageSource": "<b>Elliptical arc</b>: radius1 = %1%2, radius2 = %3%2, angle1 = %4°, angle2 = %5°; <b>Mouse click</b> - finish selecting the second radius, <b>%6</b> - sticking angle, <b>%7</b> - skip"
+    },
+    {
+        "context": "VisToolEllipticalArc",
+        "messageSource": "<b>Elliptical arc</b>: radius1 = %1%2, radius2 = %3%2, angle1 = %4°, angle2 = %5°, rotation = %6°; <b>Mouse click</b> - finish selecting the second radius, <b>%7</b> - sticking angle, <b>%8</b> - skip"
+    },
+    {
+        "context": "VisToolNormal",
+        "messageSource": "Length = %1%2; <b>Mouse click</b> - finish selecting the length, <b>%3</b> - skip"
+    },
+    {
+        "context": "VisToolPointFromCircleAndTangent",
+        "messageSource": "Radius = %1%2; <b>Mouse click</b> - finish selecting the radius, <b>%3</b> - skip"
+    },
+    {
+        "context": "VisToolPointOfContact",
+        "messageSource": "Radius = %1%2; <b>Mouse click</b> - finish selecting the radius, <b>%3</b> - skip"
+    },
+    {
+        "context": "VisToolPointOfIntersectionCircles",
+        "messageSource": "Radius = %1%2; <b>Mouse click</b> - finish selecting the second radius, <b>%3</b> - skip"
+    },
+    {
+        "context": "VisToolPointOfIntersectionCircles",
+        "messageSource": "Radius = %1%2; <b>Mouse click</b> - finish selecting the first radius, <b>%3</b> - skip"
+    },
+    {
+        "context": "VisToolShoulderPoint",
+        "messageSource": "Length = %1%2; <b>Mouse click</b> - finish selecting the length, <b>%3</b> - skip"
+    },
+    {
+        "context": "WatermarkWindow",
+        "messageSource": "Do you want to change the permissions?"
+    },
+    {
+        "context": "WatermarkWindow",
+        "messageSource": "The watermark has been modified. Do you want to save your changes?"
+    }
+]
