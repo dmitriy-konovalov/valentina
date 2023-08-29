@@ -5,10 +5,10 @@
 - [smart-pattern/valentina#187] Puzzle: message "Invalid version: Max supported version 0.1.2" when opening 0.1.1 file in Val 0.7.52.
 - Fix export measurement separator to CSV.
 - Fix option Hide labels.
-- Improve segmenting a curve for calculating a piece path. 
+- Improve segmenting a curve for calculating a piece path.
 - [smart-pattern/valentina#184] Fix incorrect seam allowance.
 - Export area of piece in Final measurements.
-- New option Show accuracy radius. 
+- New option Show accuracy radius.
 - New option Interactive tools.
 - Improve error messages while import CSV data.
 - [smart-pattern/valentina#189] Fix regression in dialog Known measurements.
@@ -164,7 +164,7 @@
 
 # Version 0.7.44 Feb 9, 2021
 - Placeholder %size% has incorrect value.
-- Values for waist and hip swapped for individual measurements. 
+- Values for waist and hip swapped for individual measurements.
 - Fix crash when edit a group operation notes.
 - Fix bug. Undo Union details hide piece node points.
 
@@ -179,7 +179,7 @@
 # Version 0.7.42 Jan 26, 2021
 - Fix export of pattern recipe.
 - Update translations.
-- Fix a regression in tool Segment a spline path. 
+- Fix a regression in tool Segment a spline path.
 - Fix invalid visualization for tool Point of intersection circles.
 - New warning. Warn about empty measurements dimension value when preparing placeholders.
 - New option "Don't use the native file dialog".
@@ -222,7 +222,7 @@
 - Fix crash while synchronize measurements.
 - Object alias.
 - Change value for an uninitialized local variable to NAN.
-- Independent pen style and color after a group operation. 
+- Independent pen style and color after a group operation.
 
 # Version 0.7.36 October 24, 2020
 - [#892] Show tooltip for piece node point.
@@ -238,7 +238,7 @@
 - [#932] 2nd version V passmarks.
 - [#936] Improve list of predefined paper size formats for layout export. Added format Tabloid.
 - Extend Label language to support Czech alphabet.
-- [#916] Improve layout generation. 
+- [#916] Improve layout generation.
 - [#965] Control passmark length with formula.
 - New placelabel shape Circle.
 - Two new passmark types: U and Box.
@@ -315,7 +315,7 @@
 - Key --ignoremargins still required margins.
 - [#978] Don't show errors in History dialog.
 - Fixed translation numbers in scientific notation.
-- Fix dialog for tool Point along perpendicular. No memory of line color settings. 
+- Fix dialog for tool Point along perpendicular. No memory of line color settings.
 - Fix crash after uniting three pieces in sequence.
 - Incorrect conversion to newer curve format.
 - Elide a variable description in the formula wizard.
@@ -395,13 +395,13 @@
 - [#688] Difficult to enter numbers in Tape.
 - Fixed bug in Tape app. Tape showed birth date in wrong locale.
 - Fixed bug in dialog Internal Piece Path. Value from the field After rewrited data in the field Before.
-- Tab Pins moved to be second in the list after tab Paths. 
-- Added tooltip for tab Passmark. Explained meaning of check box "Show the second passmark on seam line". 
+- Tab Pins moved to be second in the list after tab Paths.
+- Added tooltip for tab Passmark. Explained meaning of check box "Show the second passmark on seam line".
 - [#696] Wrong grainline position on layout.
 - [#697] Incomplete Internal Path for Waist Dart.
 - [#698] Problem typing in new axis point for new piece.
 - [#702] Valentina produces broken shortcut (.lnk) files on Windows.
-- Changed default behaviour if path to multisize measurements or templates doesn't exist. 
+- Changed default behaviour if path to multisize measurements or templates doesn't exist.
 - [#703] Valentina warns about format rewriting for unsaved files.
 - [#704] Valentina crashes if click on detail.
 - [#706] Default unit in preferences not changing new file unit.
@@ -447,9 +447,9 @@
 - [#508] Settings saved to INI files in different folders.
 - [#193] Undeletable zombie arc objects.
 - New feature. Groups.
-- Tool "Curve intersect axis" store data about subpaths. 
+- Tool "Curve intersect axis" store data about subpaths.
 - [#444] Length along Path seems not valid.
-- Added new curve path segment variables. 
+- Added new curve path segment variables.
 - Toggle ScrollHandDrag mode by clicking a middle mouse button.
 - Added horizontal scrolling by pressiong Shift + mouse wheel.
 - [#366] Update 'Point from Distance and Angle' tool to read distance and angle between points.
@@ -512,7 +512,7 @@
 - [#494] Printing is not working.
 - [#516] Valentina crashes when use "Point intersect line and axis" instrument.
 - [#483] File lost.
-- Fixed Bisector tool bug. The tool created internal variable for wrong segment.  
+- Fixed Bisector tool bug. The tool created internal variable for wrong segment.
 - [#526] Dialog Detail is not on top after selection second object on Mac.
 - [#532] Unexpected error occurs when zoom out image.
 - [#537] Valentina crashes when use undo command.
@@ -554,7 +554,7 @@
 - In dialog 'tool Spline Path' fixed broken selecting new point into the list of points.
 - Regesign dialogs tool 'Spline' and 'Spline Path' for avoiding text squeeze.
 - Fixed getting correct reversed segment for single in the list curve.
-- Fixed triggering validation a detail. Two new cases: has been changed Reverse option and the list 
+- Fixed triggering validation a detail. Two new cases: has been changed Reverse option and the list
 has been scrolled. Fixed validation when the list conatains only curve.
 - Fixed broken path to measurements after using Save As option.
 - Tool line. Block selecting the same point twice.
@@ -648,7 +648,7 @@ has been scrolled. Fixed validation when the list conatains only curve.
 - Fixed support .svg format.
 - Support individual measurements.
 - Support mm, cm and inch units in patterns.
-- New math parser. 
+- New math parser.
 - Support language independent measurements.
 - Apply button in tool dialog.
 - Multi lines formula fields.

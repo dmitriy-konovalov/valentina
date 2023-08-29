@@ -289,10 +289,9 @@ void VAbstractApplication::LoadTranslation(QString locale)
     {
         qDebug() << "Default locale";
     }
-    else
-    {
-        qDebug() << "Checked locale:" << locale;
-    }
+
+
+    qDebug()<<"Checked locale:"<<locale;
 
     ClearTranslation();
 
