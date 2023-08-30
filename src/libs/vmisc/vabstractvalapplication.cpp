@@ -95,11 +95,6 @@ auto VAbstractValApplication::GetPlaceholderTranslator() -> QSharedPointer<QTran
         pieceLabelLocale = settings->GetLocale();
     }
 
-    if (pieceLabelLocale.startsWith(QLatin1String("ru")))
-    {
-        return QSharedPointer<QTranslator>(new QTranslator);
-    }
-
     QSharedPointer<QTranslator> translator = QSharedPointer<QTranslator>(new QTranslator);
     const QString appQmDir = VAbstractApplication::translationsPath(settings->GetLocale());
     if (translator->load(QStringLiteral("valentina_") + pieceLabelLocale, appQmDir))

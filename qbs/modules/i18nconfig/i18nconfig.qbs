@@ -52,7 +52,7 @@ Module {
 //        "ko", Not supported by Valentina
 //        "lt", Not supported by Valentina
 //        "lv", Not supported by Valentina
-//        "ru", Not supported by Valentina
+        "ru",
 //        "sk", Not supported by Valentina
 //        "sl", Not supported by Valentina
 //        "sv", Not supported by Valentina

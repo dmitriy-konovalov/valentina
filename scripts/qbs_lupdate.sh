@@ -13,7 +13,7 @@ cd ../../scripts
 MEASUREMENTS_BRANCH='' # For example _05x
 VALENTINA_BRANCH=''    # for example 05x
 
-LANGUAGES="uk,de_DE,cs,he_IL,fr_FR,it_IT,nl,id,es,fi,en_US,en_CA,en_IN,ro_RO,zh_CN,pt_BR,el_GR,pl_PL"
+LANGUAGES="ru_RU,uk,de_DE,cs,he_IL,fr_FR,it_IT,nl,id,es,fi,en_US,en_CA,en_IN,ro_RO,zh_CN,pt_BR,el_GR,pl_PL"
 
 NUMBER=( $RESOURCES )
 NUMBER=${#NUMBER[@]}

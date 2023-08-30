@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="en">
+<TS version="2.1" language="ru_RU">
     <context>
         <name>AddBackgroundImage</name>
         <message>
@@ -4830,7 +4830,7 @@
             <translation>Неправильные поля.</translation>
         </message>
         <message>
-            <source>Fields go beyond printing. 
+            <source>Fields go beyond printing.
 
 Apply settings anyway?</source>
             <translation type="vanished">Поля выходят за границы печати.
@@ -4928,10 +4928,10 @@ Apply settings anyway?</source>
         </message>
         <message>
             <location filename="../../src/app/valentina/dialogs/dialoglayoutsettings.cpp" line="659"/>
-            <source>Margins go beyond printing. 
+            <source>Margins go beyond printing.
 
 Apply settings anyway?</source>
-            <translation type="unfinished">Поля выходят за рамки печати. 
+            <translation type="unfinished">Поля выходят за рамки печати.
 
 Применить настройки в любом случае?</translation>
         </message>

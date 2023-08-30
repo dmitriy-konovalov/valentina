@@ -5,8 +5,8 @@ const convert = require("xml-js");
 let translationsDir =
   "/Users/dos095-russ/Documents/src/valentina/share/translations";
 
-const fileNameRu = "valentina_ru_RU.ts";
-const fileNameEn = fileNameRu.replace("_ru_RU", "");
+const fileNameRu = "valentina_ru_RU_old.ts";
+const fileNameEn = "valentina.ts";
 
 var xmlRu = fs.readFileSync(path.join(translationsDir, fileNameRu), "utf8");
 var options = { ignoreComment: true, alwaysChildren: true };
