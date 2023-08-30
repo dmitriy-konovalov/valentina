@@ -1,6 +1,6 @@
 [main]
 host     = https://www.transifex.com
-lang_map = es: es_ES, id: id_ID, uk: uk_UA, cs: cs_CZ, nl: nl_NL, fi: fi_FI
+lang_map = es: es_ES, id: id_ID, uk: uk_UA, cs: cs_CZ, nl: nl_NL, fi: fi_FI, ru: ru_RU
 
 [o:valentina:p:valentina-project:r:measurements_p0ts]
 file_filter = share/translations/measurements_p0_<lang>.ts

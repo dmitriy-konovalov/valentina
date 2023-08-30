@@ -1,5 +1,6 @@
 Module {
     readonly property stringList translationLocales: [
+	"ru_RU",
         "uk_UA",
         "de_DE",
         "cs_CZ",
