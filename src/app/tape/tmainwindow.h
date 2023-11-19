@@ -58,9 +58,9 @@ public:
 
     void RetranslateTable();
 
-    void SetDimensionABase(int base);
-    void SetDimensionBBase(int base);
-    void SetDimensionCBase(int base);
+    void SetDimensionABase(qreal base);
+    void SetDimensionBBase(qreal base);
+    void SetDimensionCBase(qreal base);
     void SetPUnit(Unit unit);
 
     auto LoadFile(const QString &path) -> bool;
@@ -237,7 +237,7 @@ private:
     auto EvalFormula(const QString &formula, bool fromUser, VContainer *data, QLabel *label, bool specialUnits) -> bool;
     void ShowMDiagram(const QString &name);
 
-    void Open(const QString &pathTo, const QString &filter);
+    auto Open(const QString &pathTo, const QString &filter) -> QString;
     void UpdatePadlock(bool ro);
     void MeasurementGUI();
     void Controls();

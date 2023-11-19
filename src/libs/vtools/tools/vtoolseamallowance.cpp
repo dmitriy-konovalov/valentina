@@ -418,6 +418,7 @@ void VToolSeamAllowance::AddAttributes(VAbstractPattern *doc, QDomElement &domEl
                                       [](bool inLayout) noexcept { return inLayout; });
     doc->SetAttribute(domElement, AttrForbidFlipping, piece.IsForbidFlipping());
     doc->SetAttribute(domElement, AttrForceFlipping, piece.IsForceFlipping());
+    doc->SetAttribute(domElement, AttrFollowGrainline, piece.IsFollowGrainline());
     doc->SetAttribute(domElement, AttrSewLineOnDrawing, piece.IsSewLineOnDrawing());
     doc->SetAttributeOrRemoveIf<bool>(domElement, AttrSeamAllowance, piece.IsSeamAllowance(),
                                       [](bool seamAllowance) noexcept { return not seamAllowance; });
@@ -1269,6 +1270,10 @@ void VToolSeamAllowance::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
     inLayoutOption->setCheckable(true);
     inLayoutOption->setChecked(detail.IsInLayout());
 
+    QAction *hideMainPathOption = menu.addAction(tr("Hide main path"));
+    hideMainPathOption->setCheckable(true);
+    hideMainPathOption->setChecked(detail.IsHideMainPath());
+
     QAction *forbidFlippingOption = menu.addAction(tr("Forbid flipping"));
     forbidFlippingOption->setCheckable(true);
     forbidFlippingOption->setChecked(detail.IsForbidFlipping());
@@ -1291,6 +1296,10 @@ void VToolSeamAllowance::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
     else if (selectedAction == inLayoutOption)
     {
         ToggleInLayout(selectedAction->isChecked());
+    }
+    else if (selectedAction == hideMainPathOption)
+    {
+        ToggleHideMainPath(selectedAction->isChecked());
     }
     else if (selectedAction == forbidFlippingOption)
     {
@@ -1602,9 +1611,17 @@ void VToolSeamAllowance::ShowOptions()
 //---------------------------------------------------------------------------------------------------------------------
 void VToolSeamAllowance::ToggleInLayout(bool checked)
 {
-    auto *togglePrint = new TogglePieceInLayout(m_id, checked, &(VAbstractTool::data), doc);
-    connect(togglePrint, &TogglePieceInLayout::Toggled, doc, &VAbstractPattern::CheckInLayoutList);
-    VAbstractApplication::VApp()->getUndoStack()->push(togglePrint);
+    auto *toggleInLayout = new TogglePieceInLayout(m_id, checked, &(VAbstractTool::data), doc);
+    connect(toggleInLayout, &TogglePieceInLayout::Toggled, doc, &VAbstractPattern::CheckInLayoutList);
+    VAbstractApplication::VApp()->getUndoStack()->push(toggleInLayout);
+}
+
+//---------------------------------------------------------------------------------------------------------------------
+void VToolSeamAllowance::ToggleHideMainPath(bool checked)
+{
+    auto *toggleHideMainPath = new class ToggleHideMainPath(m_id, checked, &(VAbstractTool::data), doc);
+    connect(toggleHideMainPath, &ToggleHideMainPath::Toggled, this, [this]() { RefreshGeometry(false); });
+    VAbstractApplication::VApp()->getUndoStack()->push(toggleHideMainPath);
 }
 
 //---------------------------------------------------------------------------------------------------------------------
@@ -2127,7 +2144,7 @@ auto VToolSeamAllowance::PrepareLabelData(const VPatternLabelData &labelData, co
         const int iFS = labelData.GetFontSize() < VCommonSettings::MinPieceLabelFontPointSize()
                             ? settings->GetPieceLabelFontPointSize()
                             : labelData.GetFontSize();
-        fnt.setPointSize(iFS);
+        fnt.setPointSize(qMax(iFS, 1));
         labelItem->SetSVGFontPointSize(iFS);
     }
     labelItem->SetFont(fnt);

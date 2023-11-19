@@ -15,6 +15,9 @@ VToolApp {
     Depends { name: "VFormatLib"; }
     Depends { name: "VMiscLib"; }
     Depends { name: "VGAnalyticsLib" }
+    Depends { name: "pdftops"; condition: qbs.targetOS.contains("macos") }
+    Depends { name: "Tape"; condition: qbs.targetOS.contains("macos") && buildconfig.enableMultiBundle }
+    Depends { name: "Puzzle"; condition: qbs.targetOS.contains("macos") && buildconfig.enableMultiBundle }
 
     Depends {
         name: "Qt.xmlpatterns"
@@ -28,8 +31,20 @@ VToolApp {
         required: false
     }
 
-    primaryApp: true
+    // Explicitly link to libcrypto and libssl to avoid error: Failed to load libssl/libcrypto.
+    // Use moduleProviders.qbspkgconfig.extraPaths to define the missing dependency.
+    // Explicit linking will help macdeployqt undertsand that we want to see them inside the bundle.
+    Depends {
+        name: "libcrypto"
+        condition: qbs.targetOS.contains("macos") && Utilities.versionCompare(Qt.core.version, "6") >= 0
+    }
 
+    Depends {
+        name: "libssl"
+        condition: qbs.targetOS.contains("macos") && Utilities.versionCompare(Qt.core.version, "6") >= 0
+    }
+
+    primaryApp: true
     name: "Valentina"
     buildconfig.appTarget: qbs.targetOS.contains("macos") ? "Valentina" : "valentina"
     targetName: buildconfig.appTarget
@@ -159,7 +174,7 @@ VToolApp {
         name: "Resources"
         prefix: "share/resources/"
         files: [
-            "cursor.qrc", // Tools cursor icons
+            "toolcursor.qrc", // Tools cursor icons
             "toolicon.qrc",
         ]
     }
@@ -179,38 +194,6 @@ VToolApp {
             defines.push('TRANSLATIONS_DIR="' + exportingProduct.buildDirectory +'"');
             return defines;
         }
-    }
-
-    Group {
-        name: "Label templates"
-        prefix: project.sourceDirectory + "/src/app/share/labels/"
-        files: [
-            "def_pattern_label.xml",
-            "def_piece_label.xml"
-        ]
-        qbs.install: true
-        qbs.installDir: buildconfig.installDataPath + "/labels"
-    }
-
-    Group {
-        name: "Multisize tables"
-        prefix: project.sourceDirectory + "/src/app/share/tables/multisize/"
-        files: [
-            "GOST_man_ru.vst"
-        ]
-        qbs.install: true
-        qbs.installDir: buildconfig.installDataPath + "/tables/multisize"
-    }
-
-    Group {
-        name: "Measurements templates"
-        prefix: project.sourceDirectory + "/src/app/share/tables/templates/"
-        files: [
-            "template_all_measurements.vit",
-            "t_Aldrich_Women.vit"
-        ]
-        qbs.install: true
-        qbs.installDir: buildconfig.installDataPath + "/tables/templates"
     }
 
     Group {
@@ -243,6 +226,20 @@ VToolApp {
         }
     }
 
+    Properties {
+        condition: qbs.targetOS.contains("macos")
+        macdeployqt.targetApps: {
+            var apps = [];
+            if (!buildconfig.enableMultiBundle)
+                apps.push("Tape", "Puzzle");
+
+            if (pdftops.pdftopsPresent)
+                apps.push("pdftops");
+
+            return apps;
+        }
+    }
+
     Group {
         condition: qbs.targetOS.contains("windows") && (qbs.architecture.contains("x86_64") || qbs.architecture.contains("x86"))
         name: "pdftops Windows"
@@ -253,12 +250,10 @@ VToolApp {
     }
 
     Group {
-        condition: qbs.targetOS.contains("macos") && qbs.architecture.contains("x86_64")
         name: "pdftops MacOS"
-        prefix: project.sourceDirectory + "/dist/macx/bin64/"
-        files: ["pdftops"]
-        qbs.install: true
-        qbs.installDir: buildconfig.installBinaryPath
+        condition: qbs.targetOS.contains("macos") && pdftops.pdftopsPresent
+        files: [pdftops.pdftopsPath]
+        fileTags: ["pdftops.in"]
     }
 
     Group {

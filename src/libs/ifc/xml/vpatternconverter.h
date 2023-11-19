@@ -29,7 +29,6 @@
 #ifndef VPATTERNCONVERTER_H
 #define VPATTERNCONVERTER_H
 
-
 #include <QCoreApplication>
 #include <QDomElement>
 #include <QMap>
@@ -39,14 +38,15 @@
 #include <QVector>
 #include <QtGlobal>
 
-#include "vabstractconverter.h"
 #include "../vmisc/projectversion.h"
+#include "vabstractconverter.h"
 
 class QDomElement;
 
 class VPatternConverter final : public VAbstractConverter
 {
     Q_DECLARE_TR_FUNCTIONS(VPatternConverter) // NOLINT
+
 public:
     explicit VPatternConverter(const QString &fileName);
     virtual ~VPatternConverter() = default;
@@ -54,9 +54,9 @@ public:
     static const QString PatternMaxVerStr;
     static const QString CurrentSchema;
     static Q_DECL_CONSTEXPR const unsigned PatternMinVer = FormatVersion(0, 1, 4);
-    static Q_DECL_CONSTEXPR const unsigned PatternMaxVer = FormatVersion(0, 9, 2);
+    static Q_DECL_CONSTEXPR const unsigned PatternMaxVer = FormatVersion(0, 9, 3);
 
-    static auto XSDSchemas() -> QHash <unsigned, QString>;
+    static auto XSDSchemas() -> QHash<unsigned, QString>;
 
 protected:
     void Save() override;
@@ -72,7 +72,7 @@ protected:
 
     virtual auto IsReadOnly() const -> bool override;
 
-    auto Schemas() const -> QHash <unsigned, QString> override;
+    auto Schemas() const -> QHash<unsigned, QString> override;
 
 private:
     Q_DISABLE_COPY_MOVE(VPatternConverter) // NOLINT
@@ -91,25 +91,26 @@ private:
     void ToV0_9_0();
     void ToV0_9_1();
     void ToV0_9_2();
+    void ToV0_9_3();
 
-    void          TagUnitToV0_2_0();
-    void          TagIncrementToV0_2_0();
-    void          ConvertMeasurementsToV0_2_0();
-    void          TagMeasurementsToV0_2_0();
+    void TagUnitToV0_2_0();
+    void TagIncrementToV0_2_0();
+    void ConvertMeasurementsToV0_2_0();
+    void TagMeasurementsToV0_2_0();
 
-    void          ConvertMeasurementsToV0_2_1();
+    void ConvertMeasurementsToV0_2_1();
 
-    void          RemoveColorToolCutV0_3_1();
+    void RemoveColorToolCutV0_3_1();
 
     auto FixIncrementsToV0_2_0() -> QSet<QString>;
     auto FixIncrementInFormulaToV0_2_0(const QString &formula, const QSet<QString> &names) -> QString;
-    void          FixPointExpressionsToV0_2_0(const QSet<QString> &names);
-    void          FixArcExpressionsToV0_2_0(const QSet<QString> &names);
-    void          FixPathPointExpressionsToV0_2_0(const QSet<QString> &names);
+    void FixPointExpressionsToV0_2_0(const QSet<QString> &names);
+    void FixArcExpressionsToV0_2_0(const QSet<QString> &names);
+    void FixPathPointExpressionsToV0_2_0(const QSet<QString> &names);
 
-    void    ConvertPointExpressionsToV0_2_0(const QMap<QString, QString> &names);
-    void    ConvertArcExpressionsToV0_2_0(const QMap<QString, QString> &names);
-    void    ConvertPathPointExpressionsToV0_2_0(const QMap<QString, QString> &names);
+    void ConvertPointExpressionsToV0_2_0(const QMap<QString, QString> &names);
+    void ConvertArcExpressionsToV0_2_0(const QMap<QString, QString> &names);
+    void ConvertPathPointExpressionsToV0_2_0(const QMap<QString, QString> &names);
     auto FixMeasurementInFormulaToV0_2_0(const QString &formula, const QMap<QString, QString> &names) -> QString;
 
     auto MUnitV0_1_4() const -> QString;

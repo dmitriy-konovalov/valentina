@@ -1,4 +1,5 @@
 import qbs.FileInfo
+import qbs.File
 import qbs.Utilities
 
 Module {
@@ -45,13 +46,14 @@ Module {
         return project.enableConan;
     }
 
-    readonly property bool enableCodeSigning : {
-        return project.enableSigning;
-    }
+    readonly property bool enableCodeSigning: project.enableSigning
+
+    property string signingIdentity: "-"
 
     property string libDirName: "lib"
 
     property string appTarget
+    property string projectVersion: "0.7.52"
 
     readonly property string installAppPath: {
         if (qbs.targetOS.contains("macos"))
@@ -826,6 +828,15 @@ Module {
                     if (includePaths[i].indexOf("xerces-c") !== -1)
                     {
                         paths.push(includePaths[i]);
+                    }
+                }
+
+                if (qbs.targetOS.contains("unix"))
+                {
+                    var xercescHeaders = "/usr/local/include/xercesc";
+                    if (File.exists(xercescHeaders) && !paths.contains(xercescHeaders))
+                    {
+                        paths.push(xercescHeaders);
                     }
                 }
             }

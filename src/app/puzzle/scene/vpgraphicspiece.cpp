@@ -102,7 +102,7 @@ inline auto LineMatrix(const VPPiecePtr &piece, const QPointF &topLeft, qreal an
 inline auto LineFont(const TextLine &tl, const QFont &base) -> QFont
 {
     QFont fnt = base;
-    fnt.setPointSize(base.pointSize() + tl.m_iFontSize);
+    fnt.setPointSize(qMax(base.pointSize() + tl.m_iFontSize, 1));
     fnt.setBold(tl.m_bold);
     fnt.setItalic(tl.m_italic);
     return fnt;

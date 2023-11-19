@@ -29,6 +29,7 @@
 
 #include <QCloseEvent>
 #include <QFileDialog>
+#include <QFileInfo>
 #include <QFileSystemWatcher>
 #include <QLoggingCategory>
 #include <QPrintDialog>
@@ -100,6 +101,12 @@ using namespace std::chrono_literals;
 using namespace bpstd::literals::chrono_literals;
 #endif // __cplusplus >= 201402L
 #endif //(defined(Q_CC_GNU) && Q_CC_GNU < 409) && !defined(Q_CC_CLANG)
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 4, 0)
+#include "../vmisc/compatibility.h"
+#endif
+
+using namespace Qt::Literals::StringLiterals;
 
 namespace
 {
@@ -463,6 +470,25 @@ auto VPMainWindow::LoadFile(const QString &path) -> bool
                        qUtf8Printable(tr("Unable to read a layout file. %1").arg(fileReader.errorString())));
             lock.reset();
             return false;
+        }
+
+        VCommonSettings *settings = VAbstractApplication::VApp()->Settings();
+        if (settings->IsCollectStatistic())
+        {
+            auto *statistic = VGAnalytics::Instance();
+
+            QString clientID = settings->GetClientID();
+            if (clientID.isEmpty())
+            {
+                clientID = QUuid::createUuid().toString();
+                settings->SetClientID(clientID);
+                statistic->SetClientID(clientID);
+            }
+
+            statistic->Enable(true);
+
+            const qint64 uptime = VAbstractApplication::VApp()->AppUptime();
+            statistic->SendLayoutFormatVersion(uptime, converter.GetFormatVersionStr());
         }
     }
     catch (VException &e)
@@ -1629,18 +1655,18 @@ void VPMainWindow::UpdateWindowTitle()
         }
     }
 
-    showName += QLatin1String("[*]");
+    showName += "[*]"_L1;
 
     if (IsLayoutReadOnly())
     {
-        showName += QStringLiteral(" (") + tr("read only") + QChar(')');
+        showName += " ("_L1 + tr("read only") + ')'_L1;
     }
 
     setWindowTitle(showName);
     setWindowFilePath(curFile);
 
 #if defined(Q_OS_MAC)
-    static QIcon fileIcon = QIcon(QCoreApplication::applicationDirPath() + QLatin1String("/../Resources/layout.icns"));
+    static QIcon fileIcon = QIcon(QCoreApplication::applicationDirPath() + "/../Resources/layout.icns"_L1);
     QIcon icon;
     if (not curFile.isEmpty())
     {
@@ -1763,10 +1789,10 @@ void VPMainWindow::CreateWindowMenu(QMenu *menu)
         VPMainWindow *window = windows.at(i);
 
         QString title = QStringLiteral("%1. %2").arg(i + 1).arg(window->windowTitle());
-        const vsizetype index = title.lastIndexOf(QLatin1String("[*]"));
+        const vsizetype index = title.lastIndexOf("[*]"_L1);
         if (index != -1)
         {
-            window->isWindowModified() ? title.replace(index, 3, QChar('*')) : title.replace(index, 3, QString());
+            window->isWindowModified() ? title.replace(index, 3, '*'_L1) : title.replace(index, 3, QString());
         }
 
         QAction *action = menu->addAction(title, this, &VPMainWindow::ShowWindow);
@@ -3437,24 +3463,13 @@ void VPMainWindow::on_actionOpen_triggered()
     // Use standard path to individual measurements
     const QString pathTo = VPApplication::VApp()->PuzzleSettings()->GetPathManualLayouts();
 
-    bool usedNotExistedDir = false;
-    QDir directory(pathTo);
-    if (not directory.exists())
-    {
-        usedNotExistedDir = directory.mkpath(QChar('.'));
-    }
-
     const QString mPath = QFileDialog::getOpenFileName(this, tr("Open file"), pathTo, filter, nullptr,
                                                        VAbstractApplication::VApp()->NativeFileDialog());
 
     if (not mPath.isEmpty())
     {
         VPApplication::VApp()->NewMainWindow()->LoadFile(mPath);
-    }
-
-    if (usedNotExistedDir)
-    {
-        QDir(pathTo).rmpath(QChar('.'));
+        VPApplication::VApp()->PuzzleSettings()->SetPathManualLayouts(QFileInfo(mPath).absolutePath());
     }
 }
 
@@ -3501,7 +3516,7 @@ auto VPMainWindow::on_actionSaveAs_triggered() -> bool
 {
     QString filters = tr("Layout files") + QStringLiteral(" (*.vlt)");
     QString suffix = QStringLiteral("vlt");
-    QString fName = tr("layout") + QChar('.') + suffix;
+    QString fName = tr("layout") + '.'_L1 + suffix;
 
     QString dir;
     if (curFile.isEmpty())
@@ -3513,24 +3528,8 @@ auto VPMainWindow::on_actionSaveAs_triggered() -> bool
         dir = QFileInfo(curFile).absolutePath();
     }
 
-    bool usedNotExistedDir = false;
-    QDir directory(dir);
-    if (not directory.exists())
-    {
-        usedNotExistedDir = directory.mkpath(QChar('.'));
-    }
-
-    QString fileName = QFileDialog::getSaveFileName(this, tr("Save as"), dir + QChar('/') + fName, filters, nullptr,
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save as"), dir + '/'_L1 + fName, filters, nullptr,
                                                     VAbstractApplication::VApp()->NativeFileDialog());
-
-    auto RemoveTempDir = qScopeGuard(
-        [usedNotExistedDir, dir]()
-        {
-            if (usedNotExistedDir)
-            {
-                QDir(dir).rmpath(QChar('.'));
-            }
-        });
 
     if (fileName.isEmpty())
     {
@@ -3540,7 +3539,12 @@ auto VPMainWindow::on_actionSaveAs_triggered() -> bool
     QFileInfo f(fileName);
     if (f.suffix().isEmpty() && f.suffix() != suffix)
     {
-        fileName += QChar('.') + suffix;
+        fileName += '.'_L1 + suffix;
+    }
+
+    if (curFile.isEmpty())
+    {
+        VPApplication::VApp()->PuzzleSettings()->SetPathManualLayouts(QFileInfo(fileName).absolutePath());
     }
 
     if (not CheckFilePermissions(fileName, this))

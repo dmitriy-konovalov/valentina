@@ -31,6 +31,7 @@
 #include "../ifc/xml/vvstconverter.h"
 #include "../vdxf/libdxfrw/drw_base.h"
 #include "../vformat/vmeasurements.h"
+#include "../vganalytics/vganalytics.h"
 #include "../vlayout/vlayoutexporter.h"
 #include "../vlayout/vlayoutgenerator.h"
 #include "../vmisc/compatibility.h"
@@ -74,6 +75,8 @@
 #include <QWinTaskbarButton>
 #include <QWinTaskbarProgress>
 #endif
+
+using namespace Qt::Literals::StringLiterals;
 
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_CLANG("-Wmissing-prototypes")
@@ -193,7 +196,7 @@ auto MainWindowsNoGUI::GenerateLayout(VLayoutGenerator &lGenerator) -> bool
 #if defined(Q_OS_WIN32) && QT_VERSION < QT_VERSION_CHECK(6, 0, 0) && QT_VERSION >= QT_VERSION_CHECK(5, 7, 0)
     QTimer *progressTimer = nullptr;
 #endif
-    
+
     QSharedPointer<DialogLayoutProgress> progress;
     if (VApplication::IsGUIMode())
     {
@@ -206,10 +209,10 @@ auto MainWindowsNoGUI::GenerateLayout(VLayoutGenerator &lGenerator) -> bool
                 [this, timer]() { m_taskbarProgress->setValue(static_cast<int>(timer.elapsed() / 1000)); });
         progressTimer->start(1000);
 #endif
-        
+
         progress = QSharedPointer<DialogLayoutProgress>(
             new DialogLayoutProgress(timer, lGenerator.GetNestingTimeMSecs(), this));
-        
+
         connect(progress.data(), &DialogLayoutProgress::Abort, &lGenerator, &VLayoutGenerator::Abort);
         connect(progress.data(), &DialogLayoutProgress::Timeout, &lGenerator, &VLayoutGenerator::Timeout);
 
@@ -278,7 +281,15 @@ auto MainWindowsNoGUI::GenerateLayout(VLayoutGenerator &lGenerator) -> bool
             break;
         }
 
-        lGenerator.Generate(timer, lGenerator.GetNestingTimeMSecs(), nestingState);
+        {
+            QEventLoop wait;
+            QFutureWatcher<void> fw;
+            fw.setFuture(
+                QtConcurrent::run([&lGenerator, timer, nestingState]()
+                                  { lGenerator.Generate(timer, lGenerator.GetNestingTimeMSecs(), nestingState); }));
+            QObject::connect(&fw, &QFutureWatcher<void>::finished, &wait, &QEventLoop::quit);
+            wait.exec();
+        }
 
         if (IsTimeout())
         {
@@ -380,12 +391,14 @@ auto MainWindowsNoGUI::GenerateLayout(VLayoutGenerator &lGenerator) -> bool
                 break;
         }
 
-        nestingState = lGenerator.State();
-
         if (nestingState == LayoutErrors::PrepareLayoutError || nestingState == LayoutErrors::ProcessStoped ||
-            nestingState == LayoutErrors::TerminatedByException ||
-            (nestingState == LayoutErrors::NoError && not qFuzzyIsNull(lGenerator.GetEfficiencyCoefficient()) &&
-             efficiency >= lGenerator.GetEfficiencyCoefficient()))
+            nestingState == LayoutErrors::TerminatedByException)
+        {
+            break;
+        }
+
+        if (nestingState == LayoutErrors::NoError && not qFuzzyIsNull(lGenerator.GetEfficiencyCoefficient()) &&
+            efficiency >= lGenerator.GetEfficiencyCoefficient())
         {
             if (not lGenerator.IsPreferOneSheetSolution() || lGenerator.PapersCount() == 1)
             {
@@ -544,7 +557,7 @@ void MainWindowsNoGUI::ExportFlatLayout(const QList<QGraphicsScene *> &scenes, c
 
     if (format == LayoutExportFormats::PDFTiled && m_dialogSaveLayout->Mode() == Draw::Layout)
     {
-        const QString name = path + '/' + m_dialogSaveLayout->FileName() + QChar('1');
+        const QString name = path + '/'_L1 + m_dialogSaveLayout->FileName() + '1'_L1;
         PdfTiledFile(name);
     }
     else
@@ -1289,11 +1302,49 @@ auto MainWindowsNoGUI::OpenMeasurementFile(const QString &path) const -> QShared
         {
             VVSTConverter converter(path);
             m->setXMLContent(converter.Convert()); // Read again after conversion
+
+            VCommonSettings *settings = VAbstractApplication::VApp()->Settings();
+            if (settings->IsCollectStatistic())
+            {
+                auto *statistic = VGAnalytics::Instance();
+
+                QString clientID = settings->GetClientID();
+                if (clientID.isEmpty())
+                {
+                    clientID = QUuid::createUuid().toString();
+                    settings->SetClientID(clientID);
+                    statistic->SetClientID(clientID);
+                }
+
+                statistic->Enable(true);
+
+                const qint64 uptime = VAbstractApplication::VApp()->AppUptime();
+                statistic->SendMultisizeMeasurementsFormatVersion(uptime, converter.GetFormatVersionStr());
+            }
         }
         else
         {
             VVITConverter converter(path);
             m->setXMLContent(converter.Convert()); // Read again after conversion
+
+            VCommonSettings *settings = VAbstractApplication::VApp()->Settings();
+            if (settings->IsCollectStatistic())
+            {
+                auto *statistic = VGAnalytics::Instance();
+
+                QString clientID = settings->GetClientID();
+                if (clientID.isEmpty())
+                {
+                    clientID = QUuid::createUuid().toString();
+                    settings->SetClientID(clientID);
+                    statistic->SetClientID(clientID);
+                }
+
+                statistic->Enable(true);
+
+                const qint64 uptime = VAbstractApplication::VApp()->AppUptime();
+                statistic->SendIndividualMeasurementsFormatVersion(uptime, converter.GetFormatVersionStr());
+            }
         }
 
         if (not m->IsDefinedKnownNamesValid())

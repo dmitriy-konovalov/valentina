@@ -39,6 +39,12 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 4, 0)
+#include "../vmisc/compatibility.h"
+#endif
+
+using namespace Qt::Literals::StringLiterals;
+
 const QLatin1String VGAnalyticsWorker::dateTimeFormat("yyyy,MM,dd-hh:mm::ss:zzz");
 
 namespace
@@ -56,12 +62,19 @@ VGAnalyticsWorker::VGAnalyticsWorker(QObject *parent)
     m_request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json; charset=utf-8");
     m_request.setHeader(QNetworkRequest::UserAgentHeader, GetUserAgent());
 
-    m_guiLanguage = QLocale::system().name().toLower().replace(QChar('_'), QChar('-'));
+    m_guiLanguage = QLocale::system().name().toLower().replace('_'_L1, '-'_L1);
+
+    m_screensNumber = QString::number(QGuiApplication::screens().size());
 
     QScreen *screen = QGuiApplication::primaryScreen();
-    QSize size = screen->size();
+    QSize logicalSize = screen->size();
+    qreal devicePixelRatio = screen->devicePixelRatio();
+    m_screenPixelRatio = QString::number(devicePixelRatio);
 
-    m_screenResolution = QStringLiteral("%1x%2").arg(size.width()).arg(size.height());
+    int screenWidth = qRound(logicalSize.width() * devicePixelRatio);
+    int screenHeight = qRound(logicalSize.height() * devicePixelRatio);
+
+    m_screenResolution = QStringLiteral("%1x%2").arg(screenWidth).arg(screenHeight);
     m_screenScaleFactor = screen->logicalDotsPerInchX() / 96.0;
 
     m_timer.setInterval(m_timerInterval);
@@ -205,7 +218,7 @@ auto VGAnalyticsWorker::PostMessage() -> QNetworkReply *
     QString connection = QStringLiteral("close");
     if (m_messageQueue.count() > 1)
     {
-        connection = QLatin1String("keep-alive");
+        connection = "keep-alive"_L1;
     }
 
     QueryBuffer buffer = m_messageQueue.head();

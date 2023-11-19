@@ -334,7 +334,14 @@ void VTextGraphicsItem::SetPieceName(const QString &name)
  */
 auto VTextGraphicsItem::GetFontSize() const -> int
 {
-    return m_tm.GetFont().pixelSize();
+    int size = m_tm.GetFont().pixelSize();
+    if (size == -1)
+    {
+        QFontMetrics fontMetrics(m_tm.GetFont());
+        size = fontMetrics.height();
+    }
+
+    return size;
 }
 
 //---------------------------------------------------------------------------------------------------------------------
@@ -766,7 +773,7 @@ void VTextGraphicsItem::PaintLabelOutlineFont(QPainter *painter)
 
     for (const auto &tl : labelLines)
     {
-        fnt.setPointSize(m_tm.GetFont().pointSize() + tl.m_iFontSize);
+        fnt.setPointSize(qMax(m_tm.GetFont().pointSize() + tl.m_iFontSize, 1));
         fnt.setBold(tl.m_bold);
         fnt.setItalic(tl.m_italic);
 

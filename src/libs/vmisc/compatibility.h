@@ -54,6 +54,89 @@
 
 class QPointF;
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 8, 0)
+//---------------------------------------------------------------------------------------------------------------------
+inline bool operator==(QChar lhs, const QString &rhs) Q_DECL_NOEXCEPT
+{
+    return rhs.size() == 1 && lhs == rhs[0];
+}
+
+//---------------------------------------------------------------------------------------------------------------------
+inline bool operator!=(QChar lhs, const QString &rhs) Q_DECL_NOEXCEPT
+{
+    return !(lhs == rhs);
+}
+
+//---------------------------------------------------------------------------------------------------------------------
+inline bool operator==(const QString &lhs, QChar rhs) Q_DECL_NOEXCEPT
+{
+    return rhs == lhs;
+}
+#endif
+
+#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
+//---------------------------------------------------------------------------------------------------------------------
+Q_DECL_CONSTEXPR inline bool operator==(QChar c1, char16_t c2) Q_DECL_NOEXCEPT
+{
+    return c1 == QChar(static_cast<ushort>(c2));
+}
+
+//---------------------------------------------------------------------------------------------------------------------
+Q_DECL_CONSTEXPR inline bool operator!=(QChar c1, char16_t c2) Q_DECL_NOEXCEPT
+{
+    return !(c1 == QChar(static_cast<ushort>(c2)));
+}
+
+//---------------------------------------------------------------------------------------------------------------------
+Q_DECL_CONSTEXPR inline bool operator==(char16_t c1, QChar c2) Q_DECL_NOEXCEPT
+{
+    return c2 == c1;
+}
+
+//---------------------------------------------------------------------------------------------------------------------
+Q_DECL_CONSTEXPR inline bool operator!=(char16_t c1, QChar c2) Q_DECL_NOEXCEPT
+{
+    return c2 != c1;
+}
+#endif
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 4, 0)
+namespace Qt
+{
+inline namespace Literals
+{
+inline namespace StringLiterals
+{
+
+//---------------------------------------------------------------------------------------------------------------------
+Q_DECL_CONSTEXPR inline auto operator"" _L1(char ch) Q_DECL_NOEXCEPT->QLatin1Char
+{
+    return QLatin1Char(ch);
+}
+
+//---------------------------------------------------------------------------------------------------------------------
+Q_DECL_CONSTEXPR inline auto operator"" _L1(const char *str, size_t size) Q_DECL_NOEXCEPT->QLatin1String
+{
+    return QLatin1String(str, static_cast<vsizetype>(size));
+}
+
+//---------------------------------------------------------------------------------------------------------------------
+inline auto operator"" _ba(const char *str, size_t size) Q_DECL_NOEXCEPT->QByteArray
+{
+    return {str, static_cast<vsizetype>(size)};
+}
+
+//---------------------------------------------------------------------------------------------------------------------
+inline auto operator"" _s(const char16_t *str, size_t size) Q_DECL_NOEXCEPT->QString
+{
+    return QString::fromUtf16(str, static_cast<vsizetype>(size));
+}
+
+} // namespace StringLiterals
+} // namespace Literals
+} // namespace Qt
+#endif
+
 // Contains helpful methods to hide version dependent code. It can be deprecation of method or change in API
 //---------------------------------------------------------------------------------------------------------------------
 template <typename T>
@@ -328,6 +411,8 @@ inline auto Front(const QString &str) -> QChar
 //---------------------------------------------------------------------------------------------------------------------
 inline auto FontFromString(const QString &descrip) -> QFont
 {
+    using namespace Qt::Literals::StringLiterals;
+
     QFont font;
 
     if (!descrip.isEmpty())
@@ -337,7 +422,7 @@ inline auto FontFromString(const QString &descrip) -> QFont
 // Qt 5's QFont::fromString expects a value with 11 fields, e.g.
 // Ubuntu,10,-1,5,50,0,0,0,0,0
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
-        const auto l = descrip.split(QLatin1Char(','));
+        const auto l = descrip.split(','_L1);
         // Qt5's QFont::fromString() isn't compatible with Qt6's QFont::toString().
         // If we were built with Qt5, don't try to process a font preference that
         // was created by Qt6.

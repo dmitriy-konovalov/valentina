@@ -38,15 +38,21 @@
 #include <QShowEvent>
 #include <QtDebug>
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 4, 0)
+#include "../vmisc/compatibility.h"
+#endif
+
+using namespace Qt::Literals::StringLiterals;
+
 namespace
 {
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_CLANG("-Wunused-member-function")
 
 #ifndef Q_OS_WIN
-Q_GLOBAL_STATIC_WITH_ARGS(const QString, baseFilenameRegExp, (QLatin1String("^[^\\/]+$"))) // NOLINT
+Q_GLOBAL_STATIC_WITH_ARGS(const QString, baseFilenameRegExp, ("^[^\\/]+$"_L1)) // NOLINT
 #else
-Q_GLOBAL_STATIC_WITH_ARGS(const QString, baseFilenameRegExp, (QLatin1String("^[^\\:?\"*|\\/<>]+$"))) // NOLINT
+Q_GLOBAL_STATIC_WITH_ARGS(const QString, baseFilenameRegExp, ("^[^\\:?\"*|\\/<>]+$"_L1)) // NOLINT
 #endif
 
 QT_WARNING_POP
@@ -117,12 +123,6 @@ DialogSaveManualLayout::DialogSaveManualLayout(vsizetype count, bool consoleExpo
             [this]()
             {
                 const QString dirPath = VPApplication::VApp()->PuzzleSettings()->GetPathManualLayouts();
-                bool usedNotExistedDir = false;
-                QDir directory(dirPath);
-                if (not directory.exists())
-                {
-                    usedNotExistedDir = directory.mkpath(QChar('.'));
-                }
 
                 const QString dir = QFileDialog::getExistingDirectory(
                     this, tr("Select folder"), dirPath,
@@ -131,12 +131,8 @@ DialogSaveManualLayout::DialogSaveManualLayout(vsizetype count, bool consoleExpo
                 if (not dir.isEmpty())
                 { // If paths equal the signal will not be called, we will do this manually
                     dir == ui->lineEditPath->text() ? PathChanged(dir) : ui->lineEditPath->setText(dir);
-                }
 
-                if (usedNotExistedDir)
-                {
-                    QDir directory(dirPath);
-                    directory.rmpath(QChar('.'));
+                    VPApplication::VApp()->PuzzleSettings()->SetPathManualLayouts(dir);
                 }
             });
     connect(ui->lineEditPath, &QLineEdit::textChanged, this, &DialogSaveManualLayout::PathChanged);
@@ -485,7 +481,7 @@ void DialogSaveManualLayout::ShowExample()
     QString example;
     if (m_count > 1)
     {
-        example = tr("Example:") + FileName() + QLatin1Char('1') + VLayoutExporter::ExportFormatSuffix(currentFormat);
+        example = tr("Example:") + FileName() + '1'_L1 + VLayoutExporter::ExportFormatSuffix(currentFormat);
     }
     else
     {

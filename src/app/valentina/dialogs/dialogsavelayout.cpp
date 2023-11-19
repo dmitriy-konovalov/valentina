@@ -45,15 +45,21 @@
 #include <QRegularExpression>
 #include <QtDebug>
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 4, 0)
+#include "../vmisc/compatibility.h"
+#endif
+
+using namespace Qt::Literals::StringLiterals;
+
 namespace
 {
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_CLANG("-Wunused-member-function")
 
 #ifndef Q_OS_WIN
-Q_GLOBAL_STATIC_WITH_ARGS(const QString, baseFilenameRegExp, (QLatin1String("^[^\\/]+$"))) // NOLINT
+Q_GLOBAL_STATIC_WITH_ARGS(const QString, baseFilenameRegExp, ("^[^\\/]+$"_L1)) // NOLINT
 #else
-Q_GLOBAL_STATIC_WITH_ARGS(const QString, baseFilenameRegExp, (QLatin1String("^[^\\:?\"*|\\/<>]+$"))) // NOLINT
+Q_GLOBAL_STATIC_WITH_ARGS(const QString, baseFilenameRegExp, ("^[^\\:?\"*|\\/<>]+$"_L1)) // NOLINT
 #endif
 
 QT_WARNING_POP
@@ -130,13 +136,8 @@ DialogSaveLayout::DialogSaveLayout(int count, Draw mode, const QString &fileName
     connect(ui->pushButtonBrowse, &QPushButton::clicked, this,
             [this]()
             {
-                const QString dirPath = VAbstractValApplication::VApp()->ValentinaSettings()->GetPathLayout();
-                bool usedNotExistedDir = false;
-                QDir directory(dirPath);
-                if (not directory.exists())
-                {
-                    usedNotExistedDir = directory.mkpath(QChar('.'));
-                }
+                VValentinaSettings *settings = VAbstractValApplication::VApp()->ValentinaSettings();
+                const QString dirPath = settings->GetPathLayout();
 
                 const QString dir = QFileDialog::getExistingDirectory(
                     this, tr("Select folder"), dirPath,
@@ -145,12 +146,8 @@ DialogSaveLayout::DialogSaveLayout(int count, Draw mode, const QString &fileName
                 if (not dir.isEmpty())
                 { // If paths equal the signal will not be called, we will do this manually
                     dir == ui->lineEditPath->text() ? PathChanged(dir) : ui->lineEditPath->setText(dir);
-                }
 
-                if (usedNotExistedDir)
-                {
-                    QDir directory(dirPath);
-                    directory.rmpath(QChar('.'));
+                    settings->SetPathLayout(dir);
                 }
             });
     connect(ui->lineEditPath, &QLineEdit::textChanged, this, &DialogSaveLayout::PathChanged);
@@ -306,11 +303,11 @@ auto DialogSaveLayout::MakeHelpFormatList() -> QString
 
         if (i < formats.size() - 1)
         {
-            out += QLatin1String(",\n");
+            out += ",\n"_L1;
         }
         else
         {
-            out += QLatin1String(".\n");
+            out += ".\n"_L1;
         }
     }
     return out;
@@ -396,6 +393,12 @@ void DialogSaveLayout::Save()
             break;
         }
     }
+
+    if (QFile::exists(Path()))
+    {
+        VAbstractValApplication::VApp()->ValentinaSettings()->SetPathLayout(Path());
+    }
+
     accept();
 }
 
@@ -427,7 +430,7 @@ void DialogSaveLayout::PathChanged(const QString &text)
 void DialogSaveLayout::ShowExample()
 {
     const LayoutExportFormats currentFormat = Format();
-    ui->labelExample->setText(tr("Example:") + FileName() + QLatin1Char('1') +
+    ui->labelExample->setText(tr("Example:") + FileName() + '1'_L1 +
                               VLayoutExporter::ExportFormatSuffix(currentFormat));
 
     ui->groupBoxPaperFormat->setEnabled(false);

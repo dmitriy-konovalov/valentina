@@ -52,15 +52,21 @@
 #include "vprintlayout.h"
 #include "vrawlayout.h"
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 4, 0)
+#include "../vmisc/compatibility.h"
+#endif
+
+using namespace Qt::Literals::StringLiterals;
+
 namespace
 {
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_CLANG("-Wunused-member-function")
 
 #ifdef Q_OS_WIN
-Q_GLOBAL_STATIC_WITH_ARGS(const QString, PDFTOPS, (QLatin1String("pdftops.exe"))) // NOLINT
+Q_GLOBAL_STATIC_WITH_ARGS(const QString, PDFTOPS, ("pdftops.exe"_L1)) // NOLINT
 #else
-Q_GLOBAL_STATIC_WITH_ARGS(const QString, PDFTOPS, (QLatin1String("pdftops"))) // NOLINT
+Q_GLOBAL_STATIC_WITH_ARGS(const QString, PDFTOPS, ("pdftops"_L1)) // NOLINT
 #endif
 
 QT_WARNING_POP
@@ -404,22 +410,38 @@ void VLayoutExporter::ExportToHPGL2(const QVector<VLayoutPiece> &details) const
 //---------------------------------------------------------------------------------------------------------------------
 auto VLayoutExporter::SupportPDFConversion() -> bool
 {
-    QProcess proc;
-#if defined(Q_OS_WIN) || defined(Q_OS_OSX)
-    // Seek pdftops in app bundle or near valentina.exe
-    proc.start(qApp->applicationDirPath() + QLatin1String("/") + *PDFTOPS, QStringList());
+    auto Test = [](const QString &program)
+    {
+        QProcess proc;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        proc.start(program);
 #else
-    proc.start(*PDFTOPS, QStringList());                                      // Seek pdftops in standard path
+        proc.start(program, QStringList());
 #endif
 
-    const int timeout = 15000;
-    if (proc.waitForStarted(timeout) && (proc.waitForFinished(timeout) || proc.state() == QProcess::NotRunning))
-    {
-        return true;
-    }
+        const int timeout = 15000;
+        if (proc.waitForStarted(timeout) && (proc.waitForFinished(timeout) || proc.state() == QProcess::NotRunning))
+        {
+            return true;
+        }
 
-    qDebug() << *PDFTOPS << "error" << proc.error() << proc.errorString();
-    return false;
+        qDebug() << program << "error" << proc.error() << proc.errorString();
+        return false;
+    };
+
+#if defined(Q_OS_OSX)
+    // Seek pdftops in app bundle
+    bool found = Test(qApp->applicationDirPath() + '/'_L1 + *PDFTOPS);
+    if (not found)
+    {
+        found = Test(*PDFTOPS);
+    }
+    return found;
+#elif defined(Q_OS_WIN)
+    return Test(qApp->applicationDirPath() + '/'_L1 + *PDFTOPS);
+#else
+    return Test(*PDFTOPS);
+#endif
 }
 
 //---------------------------------------------------------------------------------------------------------------------
@@ -436,9 +458,14 @@ void VLayoutExporter::PdfToPs(const QStringList &params)
 
     QProcess proc;
 #if defined(Q_OS_MAC)
-    // Fix issue #594. Broken export on Mac.
-    proc.setWorkingDirectory(qApp->applicationDirPath());
-    proc.start(QLatin1String("./") + *PDFTOPS, params);
+    if (QFileInfo::exists(qApp->applicationDirPath() + '/'_L1 + *PDFTOPS))
+    {
+        proc.start(qApp->applicationDirPath() + '/'_L1 + *PDFTOPS, params);
+    }
+    else
+    {
+        proc.start(*PDFTOPS, params);
+    }
 #else
     proc.start(*PDFTOPS, params);
 #endif

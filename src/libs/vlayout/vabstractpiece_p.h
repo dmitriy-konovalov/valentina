@@ -58,9 +58,10 @@ public:
     friend auto operator>>(QDataStream &dataStream, VAbstractPieceData &piece) -> QDataStream &;
 
     QString m_name{tr("Detail")}; // NOLINT (misc-non-private-member-variables-in-classes)
-    /** @brief forbidFlipping forbid piece be mirrored in a layout. */
+    /** @brief forbidFlipping forbid piece to be mirrored in a layout. */
     bool m_forbidFlipping{false};       // NOLINT (misc-non-private-member-variables-in-classes)
     bool m_forceFlipping{false};        // NOLINT (misc-non-private-member-variables-in-classes)
+    bool m_followGrainline{false};      // NOLINT (misc-non-private-member-variables-in-classes)
     bool m_seamAllowance{false};        // NOLINT (misc-non-private-member-variables-in-classes)
     bool m_seamAllowanceBuiltIn{false}; // NOLINT (misc-non-private-member-variables-in-classes)
     bool m_hideMainPath{false};         // NOLINT (misc-non-private-member-variables-in-classes)
@@ -75,7 +76,7 @@ private:
     Q_DISABLE_ASSIGN_MOVE(VAbstractPieceData) // NOLINT
 
     static constexpr quint32 streamHeader = 0x05CDD73A; // CRC-32Q string "VAbstractPieceData"
-    static constexpr quint16 classVersion = 4;
+    static constexpr quint16 classVersion = 5;
 };
 
 QT_WARNING_POP
@@ -112,6 +113,9 @@ inline auto operator<<(QDataStream &dataStream, const VAbstractPieceData &piece)
     // Added in classVersion = 4
     dataStream << piece.m_onDrawing;
 
+    // Added in classVersion = 5
+    dataStream << piece.m_followGrainline;
+
     return dataStream;
 }
 
@@ -125,8 +129,8 @@ inline auto operator>>(QDataStream &dataStream, VAbstractPieceData &piece) -> QD
     {
         QString message = QCoreApplication::tr("VAbstractPieceData prefix mismatch error: actualStreamHeader = 0x%1 "
                                                "and streamHeader = 0x%2")
-                              .arg(actualStreamHeader, 8, 0x10, QChar('0'))
-                              .arg(VAbstractPieceData::streamHeader, 8, 0x10, QChar('0'));
+                              .arg(actualStreamHeader, 8, 0x10, QLatin1Char('0'))
+                              .arg(VAbstractPieceData::streamHeader, 8, 0x10, QLatin1Char('0'));
         throw VException(message);
     }
 
@@ -165,6 +169,11 @@ inline auto operator>>(QDataStream &dataStream, VAbstractPieceData &piece) -> QD
     if (actualClassVersion >= 4)
     {
         dataStream >> piece.m_onDrawing;
+    }
+
+    if (actualClassVersion >= 5)
+    {
+        dataStream >> piece.m_followGrainline;
     }
 
     return dataStream;

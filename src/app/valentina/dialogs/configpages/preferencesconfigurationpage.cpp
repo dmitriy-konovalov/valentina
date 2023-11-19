@@ -130,6 +130,7 @@ PreferencesConfigurationPage::PreferencesConfigurationPage(QWidget *parent)
     ui->checkBoxFreeCurve->setChecked(settings->IsFreeCurveMode());
     ui->checkBoxZoomFitBestCurrentPP->setChecked(settings->IsDoubleClickZoomFitBestCurrentPP());
     ui->checkBoxInteractiveTools->setChecked(settings->IsInteractiveTools());
+    ui->checkBoxTranslateFormula->setChecked(settings->IsTranslateFormula());
 
     //----------------------- Toolbar
     ui->toolBarStyleCheck->setChecked(settings->GetToolBarStyle());
@@ -142,6 +143,17 @@ PreferencesConfigurationPage::PreferencesConfigurationPage(QWidget *parent)
     {
         ui->comboBoxThemeMode->setCurrentIndex(index);
     }
+
+    // Pointer mode
+    SetPointerModeComboBox();
+    index = ui->comboBoxPointerMode->findData(static_cast<int>(settings->GetPointerMode()));
+    if (index != -1)
+    {
+        ui->comboBoxPointerMode->setCurrentIndex(index);
+    }
+
+    // Use tool groups
+    ui->checkBoxUseToolGroups->setChecked(settings->IsUseToolGroups());
 
     // Native dialogs
     ui->checkBoxDontUseNativeDialog->setChecked(settings->IsDontUseNativeDialog());
@@ -224,6 +236,13 @@ auto PreferencesConfigurationPage::Apply() -> QStringList
         QGuiApplication::restoreOverrideCursor();
     }
 
+    settings->SetPointerMode(static_cast<VToolPointerMode>(ui->comboBoxPointerMode->currentData().toInt()));
+
+    if (settings->IsUseToolGroups() != ui->checkBoxUseToolGroups->isChecked())
+    {
+        settings->SetUseToolGroups(ui->checkBoxUseToolGroups->isChecked());
+    }
+
     if (settings->IsDontUseNativeDialog() != ui->checkBoxDontUseNativeDialog->isChecked())
     {
         settings->SetDontUseNativeDialog(ui->checkBoxDontUseNativeDialog->isChecked());
@@ -232,6 +251,7 @@ auto PreferencesConfigurationPage::Apply() -> QStringList
     settings->SetFreeCurveMode(ui->checkBoxFreeCurve->isChecked());
     settings->SetDoubleClickZoomFitBestCurrentPP(ui->checkBoxZoomFitBestCurrentPP->isChecked());
     settings->SetInteractiveTools(ui->checkBoxInteractiveTools->isChecked());
+    settings->SetTranslateFormula(ui->checkBoxTranslateFormula->isChecked());
 
     if (m_pieceLabelLangChanged)
     {
@@ -317,6 +337,14 @@ void PreferencesConfigurationPage::SetThemeModeComboBox()
     ui->comboBoxThemeMode->addItem(tr("System", "theme"), static_cast<int>(VThemeMode::System));
     ui->comboBoxThemeMode->addItem(tr("Dark", "theme"), static_cast<int>(VThemeMode::Dark));
     ui->comboBoxThemeMode->addItem(tr("Light", "theme"), static_cast<int>(VThemeMode::Light));
+}
+
+//---------------------------------------------------------------------------------------------------------------------
+void PreferencesConfigurationPage::SetPointerModeComboBox()
+{
+    ui->comboBoxPointerMode->clear();
+    ui->comboBoxPointerMode->addItem(tr("Tool icon cursor"), static_cast<int>(VToolPointerMode::ToolIcon));
+    ui->comboBoxPointerMode->addItem(tr("Arrow cursor"), static_cast<int>(VToolPointerMode::Arrow));
 }
 
 //---------------------------------------------------------------------------------------------------------------------

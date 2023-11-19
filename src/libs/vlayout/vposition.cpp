@@ -49,7 +49,6 @@
 #include "../ifc/exception/vexception.h"
 #include "../vlayout/vlayoutpoint.h"
 #include "../vmisc/def.h"
-#include "../vpatterndb/floatItemData/floatitemdef.h"
 #include "vpiecegrainline.h"
 
 namespace
@@ -238,27 +237,12 @@ auto VPosition::ArrangeDetail(const VPositionData &data, std::atomic_bool *stop,
 
     watcher.setFuture(QtConcurrent::mapped(jobs, Nest));
 
-    while (not watcher.isStarted())
-    {
-        QCoreApplication::processEvents();
-        QThread::msleep(250);
-    }
-
-    // Wait for done
-    do
-    {
-        QCoreApplication::processEvents();
-        QThread::msleep(250);
-    } while (watcher.isRunning() && not stop->load());
+    QEventLoop wait;
+    QObject::connect(&watcher, &QFutureWatcher<VBestSquare>::finished, &wait, &QEventLoop::quit);
+    wait.exec();
 
     if (stop->load())
     {
-        do
-        {
-            QCoreApplication::processEvents();
-            QThread::msleep(250);
-        } while (watcher.isRunning());
-
         return bestResult;
     }
 
@@ -394,7 +378,7 @@ auto VPosition::CheckRotationEdges(VLayoutPiece &detail, int j, int dEdge, qreal
 
     if (detail.IsForceFlipping())
     {
-        detail.Mirror(not m_data.followGrainline ? globalEdge : QLineF(10, 10, 10, 100));
+        detail.Mirror(m_data.followGrainline || detail.IsFollowGrainline() ? QLineF(10, 10, 10, 100) : globalEdge);
     }
 
     RotateEdges(detail, globalEdge, dEdge, angle);
@@ -563,7 +547,9 @@ void VPosition::FollowGrainline()
     if (m_data.detail.IsForceFlipping())
     {
         VLayoutPiece workDetail = m_data.detail; // We need copy for temp change
-        workDetail.Mirror(not m_data.followGrainline ? m_data.gContour.GlobalEdge(m_data.j) : QLineF(10, 10, 10, 100));
+        workDetail.Mirror(m_data.followGrainline || workDetail.IsFollowGrainline()
+                              ? QLineF(10, 10, 10, 100)
+                              : m_data.gContour.GlobalEdge(m_data.j));
         detailGrainline = workDetail.GetMatrix().map(detailGrainline);
     }
 
@@ -618,41 +604,40 @@ void VPosition::FindBestPosition()
         return;
     }
 
-    if (not m_data.followGrainline || not m_data.detail.IsGrainlineEnabled())
+    if (m_data.detail.IsGrainlineEnabled() && (m_data.followGrainline || m_data.detail.IsFollowGrainline()))
     {
-        // We should use copy of the detail.
-        VLayoutPiece workDetail = m_data.detail;
+        FollowGrainline();
+        return;
+    }
 
-        int dEdge = m_data.i; // For mirror detail edge will be different
-        if (CheckCombineEdges(workDetail, m_data.j, dEdge))
-        {
-            if (stop->load())
-            {
-                return;
-            }
+    // We should use copy of the detail.
+    VLayoutPiece workDetail = m_data.detail;
 
-#ifdef LAYOUT_DEBUG
-#ifdef SHOW_CANDIDATE_BEST
-            DumpFrame(m_data.gContour, workDetail, m_data.mutex, m_data.details);
-#endif
-#endif
-
-            SaveCandidate(m_bestResult, workDetail, m_data.j, dEdge, BestFrom::Combine);
-        }
-
+    int dEdge = m_data.i; // For mirror detail edge will be different
+    if (CheckCombineEdges(workDetail, m_data.j, dEdge))
+    {
         if (stop->load())
         {
             return;
         }
 
-        if (m_data.rotate)
-        {
-            Rotate(m_data.rotationNumber);
-        }
+#ifdef LAYOUT_DEBUG
+#ifdef SHOW_CANDIDATE_BEST
+        DumpFrame(m_data.gContour, workDetail, m_data.mutex, m_data.details);
+#endif
+#endif
+
+        SaveCandidate(m_bestResult, workDetail, m_data.j, dEdge, BestFrom::Combine);
     }
-    else
+
+    if (stop->load())
     {
-        FollowGrainline();
+        return;
+    }
+
+    if (m_data.rotate)
+    {
+        Rotate(m_data.rotationNumber);
     }
 }
 

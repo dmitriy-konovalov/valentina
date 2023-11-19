@@ -8,9 +8,8 @@ VApp {
     Depends { name: "i18nconfig"; }
     Depends { name: "i18n"; }
     Depends { name: "ib"; condition: qbs.targetOS.contains("macos") }
-    Depends { name: "macdeployqt"; condition: qbs.targetOS.contains("macos") }
 
-    version: "0.7.52"
+    version: buildconfig.projectVersion
     install: true
     installDir: buildconfig.installBinaryPath
     installDebugInformation: qbs.buildVariant !== "release"
@@ -204,7 +203,6 @@ VApp {
     Properties {
         condition: qbs.targetOS.contains("macos")
         ib.appIconName: targetName
-        macdeployqt.targetApps: ["Tape", "Puzzle"]
     }
 
     Properties {

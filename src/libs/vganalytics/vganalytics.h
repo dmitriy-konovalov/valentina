@@ -67,7 +67,7 @@ public:
     void SetLogLevel(LogLevel logLevel);
     auto LogLevel() const -> LogLevel;
 
-    void SetRepoRevision(const QString &rev);
+    void SetRepoRevision(QString rev);
     auto RepoRevision() const -> QString;
 
     void SetGUILanguage(const QString &language);
@@ -83,10 +83,17 @@ public:
     void SetNetworkAccessManager(QNetworkAccessManager *networkAccessManager);
     auto NetworkAccessManager() const -> QNetworkAccessManager *;
 
+    static auto CountryCode() -> QString;
+
 public slots:
     void SendAppFreshInstallEvent(qint64 engagementTimeMsec);
     void SendAppStartEvent(qint64 engagementTimeMsec);
     void SendAppCloseEvent(qint64 engagementTimeMsec);
+    void SendPatternToolUsedEvent(qint64 engagementTimeMsec, const QString &toolName);
+    void SendPatternFormatVersion(qint64 engagementTimeMsec, const QString &version);
+    void SendIndividualMeasurementsFormatVersion(qint64 engagementTimeMsec, const QString &version);
+    void SendMultisizeMeasurementsFormatVersion(qint64 engagementTimeMsec, const QString &version);
+    void SendLayoutFormatVersion(qint64 engagementTimeMsec, const QString &version);
 
 private:
     Q_DISABLE_COPY_MOVE(VGAnalytics) // NOLINT
@@ -99,11 +106,6 @@ private:
     void SendEvent(const QString &eventName, const QHash<QString, QJsonValue> &params);
 
     auto InitAppStartEventParams(qint64 engagementTimeMsec) const -> QHash<QString, QJsonValue>;
-
-    static auto TerritoryCode() -> QString;
-#if QT_VERSION < QT_VERSION_CHECK(6, 1, 0)
-    static auto GetTerritoryCode(QLocale::Country territory) -> QString;
-#endif
 
     friend auto operator<<(QDataStream &outStream, const VGAnalytics &analytics) -> QDataStream &;
     friend auto operator>>(QDataStream &inStream, VGAnalytics &analytics) -> QDataStream &;

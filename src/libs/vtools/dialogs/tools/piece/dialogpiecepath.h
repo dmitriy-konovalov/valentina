@@ -41,7 +41,7 @@ class DialogPiecePath : public DialogTool
     Q_OBJECT // NOLINT
 
 public:
-    explicit DialogPiecePath(const VContainer *data, quint32 toolId, QWidget *parent = nullptr);
+    explicit DialogPiecePath(const VContainer *data, VAbstractPattern *doc, quint32 toolId, QWidget *parent = nullptr);
     ~DialogPiecePath() override;
 
     void EnbleShowMode(bool disable);
@@ -207,6 +207,8 @@ private:
     void InitPassmarkAngleType(const VPieceNode &node);
 
     void InitIcons();
+
+    auto InitContextMenu(QMenu *menu, const VPieceNode &rowNode) -> QHash<int, QAction *>;
 };
 
 //---------------------------------------------------------------------------------------------------------------------

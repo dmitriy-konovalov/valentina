@@ -37,6 +37,12 @@
 
 #include "vcommonsettings.h"
 
+enum class VToolPointerMode
+{
+    ToolIcon = 0,
+    Arrow = 1
+};
+
 class VValentinaSettings : public VCommonSettings
 {
     Q_OBJECT // NOLINT
@@ -46,16 +52,12 @@ public:
                        QObject *parent = nullptr);
     VValentinaSettings(const QString &fileName, Format format, QObject *parent = nullptr);
 
-    static auto PrepareLabelTemplates(const QString &currentPath) -> QString;
-
     auto GetLabelLanguage() const -> QString;
     void SetLabelLanguage(const QString &value);
 
-    static auto GetDefPathLayout() -> QString;
     auto GetPathLayout() const -> QString;
     void SetPathLayout(const QString &value);
 
-    static auto GetDefPathLabelTemplate() -> QString;
     auto GetPathLabelTemplate() const -> QString;
     void SetPathLabelTemplate(const QString &value);
 
@@ -241,6 +243,12 @@ public:
 
     auto GetShowGrainline() const -> bool;
     void SetShowGrainline(bool value);
+
+    auto GetPointerMode() const -> VToolPointerMode;
+    void SetPointerMode(VToolPointerMode mode);
+
+    auto IsUseToolGroups() const -> bool;
+    void SetUseToolGroups(bool value);
 
 private:
     Q_DISABLE_COPY_MOVE(VValentinaSettings) // NOLINT

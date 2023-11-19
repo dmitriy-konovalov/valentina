@@ -55,7 +55,6 @@ class DialogSeamAllowance : public DialogTool
 
 public:
     DialogSeamAllowance(const VContainer *data, VAbstractPattern *doc, quint32 toolId, QWidget *parent = nullptr);
-    DialogSeamAllowance(const VContainer *data, quint32 toolId, QWidget *parent = nullptr);
     ~DialogSeamAllowance() override;
 
     void EnableApply(bool enable);
@@ -253,8 +252,6 @@ private:
     QHash<quint32, VPlaceLabelItem> m_newPlaceLabels{};
     QHash<quint32, VPiecePath> m_newPaths{};
 
-    VAbstractPattern *m_doc{nullptr};
-
     QString m_defLabelValue{};
 
     QMenu *m_placeholdersMenu;
@@ -346,6 +343,8 @@ private:
     void InitPassmarkAngleType(const VPieceNode &node);
 
     void InitIcons();
+
+    auto InitMainPathContextMenu(QMenu *menu, const VPieceNode &rowNode) const -> QHash<int, QAction *>;
 };
 
 //---------------------------------------------------------------------------------------------------------------------

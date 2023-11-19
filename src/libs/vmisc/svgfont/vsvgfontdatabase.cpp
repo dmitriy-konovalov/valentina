@@ -38,6 +38,12 @@
 #include "vsvgfontengine.h"
 #include "vsvgfontreader.h"
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 4, 0)
+#include "../compatibility.h"
+#endif
+
+using namespace Qt::Literals::StringLiterals;
+
 namespace
 {
 QT_WARNING_PUSH
@@ -199,7 +205,7 @@ auto VSvgFontDatabase::SystemSVGFontPath() -> QString
 #ifdef Q_OS_WIN
     return QCoreApplication::applicationDirPath() + fontPath;
 #elif defined(Q_OS_MAC)
-    QDir dirBundle(QCoreApplication::applicationDirPath() + QLatin1String("/../Resources") + fontPath);
+    QDir dirBundle(QCoreApplication::applicationDirPath() + "/../Resources"_L1 + fontPath);
     if (dirBundle.exists())
     {
         return dirBundle.absolutePath();
@@ -366,7 +372,11 @@ auto VSvgFontDatabase::QueryFontEngine(const QString &family, SVGFontStyle style
     QByteArray hash = font.Hash();
     if (m_fontEngineCache.contains(hash))
     {
-        return {*m_fontEngineCache.object(hash)};
+        VSvgFontEngine engine = *m_fontEngineCache.object(hash);
+        VCommonSettings *settings = VAbstractApplication::VApp()->Settings();
+        engine.SetFontPointSize(pointSize > 0 ? pointSize : settings->GetPatternLabelFontSize());
+
+        return engine;
     }
 
     if (font.IsValid())

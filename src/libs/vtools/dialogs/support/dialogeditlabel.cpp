@@ -52,6 +52,12 @@
 #include <QMenu>
 #include <QMessageBox>
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 4, 0)
+#include "../vmisc/compatibility.h"
+#endif
+
+using namespace Qt::Literals::StringLiterals;
+
 //---------------------------------------------------------------------------------------------------------------------
 DialogEditLabel::DialogEditLabel(const VAbstractPattern *doc, const VContainer *data, QWidget *parent)
   : QDialog(parent),
@@ -302,13 +308,14 @@ void DialogEditLabel::NewTemplate()
 //---------------------------------------------------------------------------------------------------------------------
 void DialogEditLabel::ExportTemplate()
 {
-    QString filters(tr("Label template") + QLatin1String("(*.xml)"));
-    const QString path = VValentinaSettings::PrepareLabelTemplates(
-        VAbstractValApplication::VApp()->ValentinaSettings()->GetPathLabelTemplate());
+    VValentinaSettings *settings = VAbstractValApplication::VApp()->ValentinaSettings();
 
-    QString fileName = QFileDialog::getSaveFileName(this, tr("Export label template"),
-                                                    path + QLatin1String("/") + tr("template") + QLatin1String(".xml"),
-                                                    filters, nullptr, VAbstractApplication::VApp()->NativeFileDialog());
+    QString filters(tr("Label template") + "(*.xml)"_L1);
+    const QString path = settings->GetPathLabelTemplate();
+
+    QString fileName =
+        QFileDialog::getSaveFileName(this, tr("Export label template"), path + '/'_L1 + tr("template") + ".xml"_L1,
+                                     filters, nullptr, VAbstractApplication::VApp()->NativeFileDialog());
 
     if (fileName.isEmpty())
     {
@@ -316,10 +323,12 @@ void DialogEditLabel::ExportTemplate()
     }
 
     QFileInfo f(fileName);
-    if (f.suffix().isEmpty() && f.suffix() != QLatin1String("xml"))
+    if (f.suffix().isEmpty() && f.suffix() != "xml"_L1)
     {
-        fileName += QLatin1String(".xml");
+        fileName += ".xml"_L1;
     }
+
+    settings->SetPathLabelTemplate(QFileInfo(fileName).absolutePath());
 
     VLabelTemplate ltemplate;
     ltemplate.CreateEmptyTemplate();
@@ -355,10 +364,9 @@ void DialogEditLabel::ImportTemplate()
         }
     }
 
-    QString filter(tr("Label template") + QLatin1String(" (*.xml)"));
+    QString filter(tr("Label template") + " (*.xml)"_L1);
     // Use standard path to label templates
-    const QString path = VValentinaSettings::PrepareLabelTemplates(
-        VAbstractValApplication::VApp()->ValentinaSettings()->GetPathLabelTemplate());
+    const QString path = VAbstractValApplication::VApp()->ValentinaSettings()->GetPathLabelTemplate();
     const QString fileName = QFileDialog::getOpenFileName(this, tr("Import template"), path, filter, nullptr,
                                                           VAbstractApplication::VApp()->NativeFileDialog());
     if (fileName.isEmpty())
@@ -413,7 +421,7 @@ void DialogEditLabel::SaveAdditionalFontSize(int i)
     if (curLine)
     {
         QFont lineFont = curLine->font();
-        lineFont.setPointSize(lineFont.pointSize() - curLine->data(Qt::UserRole).toInt() + i);
+        lineFont.setPointSize(qMax(lineFont.pointSize() - curLine->data(Qt::UserRole).toInt() + i, 1));
         curLine->setFont(lineFont);
         curLine->setData(Qt::UserRole, i);
     }
@@ -700,7 +708,7 @@ auto DialogEditLabel::ReplacePlaceholders(QString line) const -> QString
 
     auto TestDimension = [per, this, line](const QString &placeholder, const QString &errorMsg)
     {
-        if (line.contains(per + placeholder + per) && m_placeholders.value(placeholder).second == QChar('0'))
+        if (line.contains(per + placeholder + per) && m_placeholders.value(placeholder).second == '0'_L1)
         {
             VAbstractApplication::VApp()->IsPedantic()
                 ? throw VException(errorMsg)
@@ -771,7 +779,7 @@ void DialogEditLabel::SetTemplate(const QVector<VLabelTemplateLine> &lines)
         QFont font = item->font();
         font.setBold(line.bold);
         font.setItalic(line.italic);
-        font.setPointSize(font.pointSize() + line.fontSizeIncrement);
+        font.setPointSize(qMax(font.pointSize() + line.fontSizeIncrement, 1));
         item->setFont(font);
 
         ui->listWidgetEdit->insertItem(++row, item);
@@ -853,7 +861,7 @@ void DialogEditLabel::InitPreviewLines(const QVector<VLabelTemplateLine> &lines)
         QFont font = item->font();
         font.setBold(line.bold);
         font.setItalic(line.italic);
-        font.setPointSize(font.pointSize() + line.fontSizeIncrement);
+        font.setPointSize(qMax(font.pointSize() + line.fontSizeIncrement, 1));
         item->setFont(font);
 
         ui->listWidgetPreview->insertItem(++row, item);

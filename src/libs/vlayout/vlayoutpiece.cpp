@@ -69,6 +69,8 @@
 #include "vlayoutpiece_p.h"
 #include "vtextmanager.h"
 
+using namespace Qt::Literals::StringLiterals;
+
 namespace
 {
 //---------------------------------------------------------------------------------------------------------------------
@@ -509,7 +511,7 @@ auto ReplacePlaceholders(const QMap<QString, QString> &placeholders, QString lin
 
     auto TestDimension = [per, placeholders, line](const QString &placeholder, const QString &errorMsg)
     {
-        if (line.contains(per + placeholder + per) && placeholders.value(placeholder) == QChar('0'))
+        if (line.contains(per + placeholder + per) && placeholders.value(placeholder) == '0'_L1)
         {
             VAbstractApplication::VApp()->IsPedantic()
                 ? throw VException(errorMsg)
@@ -653,6 +655,7 @@ auto VLayoutPiece::Create(const VPiece &piece, vidtype id, const VContainer *pat
     det.SetSAWidth(VAbstractValApplication::VApp()->toPixel(piece.GetSAWidth()));
     det.SetForbidFlipping(piece.IsForbidFlipping());
     det.SetForceFlipping(piece.IsForceFlipping());
+    det.SetFollowGrainline(piece.IsFollowGrainline());
     det.SetSewLineOnDrawing(piece.IsSewLineOnDrawing());
     det.SetId(id);
 
@@ -1677,7 +1680,7 @@ void VLayoutPiece::LabelStringsOutlineFont(QGraphicsItem *parent, const QVector<
     for (const auto &tl : labelLines)
     {
         QFont fnt = tm.GetFont();
-        fnt.setPointSize(tm.GetFont().pointSize() + tl.m_iFontSize);
+        fnt.setPointSize(qMax(tm.GetFont().pointSize() + tl.m_iFontSize, 1));
         fnt.setBold(tl.m_bold);
         fnt.setItalic(tl.m_italic);
 

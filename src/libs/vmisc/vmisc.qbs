@@ -1,7 +1,7 @@
 import qbs.Utilities
 
 VLib {
-    Depends { name: "Qt"; submodules: ["core", "printsupport"] }
+    Depends { name: "Qt"; submodules: ["core", "printsupport", "gui"] }
 
     name: "VMiscLib"
     files: {
@@ -195,6 +195,7 @@ VLib {
             "flags.qrc",
             "breezethemes/breeze.qrc",
             "scenestyle.qrc",
+            "cursor.qrc",
         ]
     }
 

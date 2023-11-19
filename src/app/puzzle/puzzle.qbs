@@ -1,10 +1,11 @@
 import qbs.FileInfo
 import qbs.File
+import qbs.Utilities
 
 VToolApp {
     Depends { name: "buildconfig" }
     Depends { name: "ib"; condition: qbs.targetOS.contains("macos") }
-    Depends { name: "Qt"; submodules: ["widgets", "svg"] }
+    Depends { name: "Qt"; submodules: ["core", "widgets", "svg"] }
     Depends { name: "VMiscLib" }
     Depends { name: "VLayoutLib" }
     Depends { name: "IFCLib" }
@@ -13,6 +14,20 @@ VToolApp {
     Depends { name: "FervorLib" }
     Depends { name: "multibundle"; }
     Depends { name: "VGAnalyticsLib" }
+    Depends { name: "pdftops"; condition: qbs.targetOS.contains("macos") }
+
+    // Explicitly link to libcrypto and libssl to avoid error: Failed to load libssl/libcrypto.
+    // Use moduleProviders.qbspkgconfig.extraPaths to define the missing dependency.
+    // Explicit linking will help macdeployqt undertsand that we want to see them inside the bundle.
+    Depends {
+        name: "libcrypto"
+        condition: qbs.targetOS.contains("macos") && Utilities.versionCompare(Qt.core.version, "6") >= 0
+    }
+
+    Depends {
+        name: "libssl"
+        condition: qbs.targetOS.contains("macos") && Utilities.versionCompare(Qt.core.version, "6") >= 0
+    }
 
     name: "Puzzle"
     buildconfig.appTarget: qbs.targetOS.contains("macos") ? "Puzzle" : "puzzle"
@@ -159,7 +174,7 @@ VToolApp {
         name: "Resources"
         prefix: "share/resources/"
         files: [
-            "cursor.qrc", // Tools cursor icons
+            "puzzlecursor.qrc", // Tools cursor icons
             "puzzleicon.qrc",
         ]
     }
@@ -187,14 +202,23 @@ VToolApp {
         qbs.installDir: buildconfig.installBinaryPath
     }
 
+    Properties {
+        condition: qbs.targetOS.contains("macos") && buildconfig.enableMultiBundle
+        macdeployqt.targetApps: {
+            var apps = [];
+
+            if (pdftops.pdftopsPresent)
+                apps.push("pdftops");
+
+            return apps;
+        }
+    }
+
     Group {
-        condition: qbs.targetOS.contains("macos") && qbs.architecture.contains("x86_64") && buildconfig.enableMultiBundle
+        condition: qbs.targetOS.contains("macos") && buildconfig.enableMultiBundle && pdftops.pdftopsPresent
         name: "pdftops MacOS"
-        prefix: project.sourceDirectory + "/dist/macx/bin64/"
-        files: ["pdftops"]
-        fileTags: ["pdftops_dist_macx"]
-        qbs.install: true
-        qbs.installDir: buildconfig.installBinaryPath
+        files: [pdftops.pdftopsPath]
+        fileTags: ["pdftops.in"]
     }
 
     Group {
@@ -312,7 +336,6 @@ VToolApp {
     }
 
     Rule {
-        alwaysRun: true
         condition: product.qbs.targetOS.contains("macos") && product.buildconfig.enableMultiBundle
         inputs: ["svg_fonts"]
         Artifact {

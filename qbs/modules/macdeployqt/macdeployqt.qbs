@@ -14,6 +14,8 @@ Module {
 
     property string macdeployqtArtifact: artifacts ? "maceployqt.txt" : undefined
 
+    property string macdeployqtProgramBinPath : undefined
+
     property string macdeployqtProgram: "macdeployqt"
 
     property bool noPlugins: false
@@ -26,11 +28,15 @@ Module {
 
     property bool alwaysOverwrite: false
 
-     property bool appstoreCompliant: false
+    property bool appstoreCompliant: false
 
-    property string libpath: undefined
+    property stringList libpath: undefined
+
+    property string pluginspath: undefined
 
     property stringList targetApps: undefined
+
+    property bool signForNotarization: false
 
     property string signingIdentity: "-" // ad-hoc
 
@@ -61,7 +67,7 @@ Module {
                     cmdArgs.push("-no-plugins");
 
                 if (product.macdeployqt.verbose !== undefined)
-                    cmdArgs.push("-verbose", product.macdeployqt.verbose);
+                    cmdArgs.push("-verbose=" + product.macdeployqt.verbose);
 
                 if (product.macdeployqt.noStrip)
                     cmdArgs.push("-no-strip");
@@ -76,19 +82,32 @@ Module {
                     cmdArgs.push("-appstore-compliant");
 
                 if (product.macdeployqt.libpath !== undefined)
-                    cmdArgs.push("-libpath", product.macdeployqt.libpath);
+                    product.macdeployqt.libpath.forEach(function(libpath) {
+                        cmdArgs.push("-libpath=" + libpath);
+                    });
 
-                if (product.buildconfig.enableCodeSigning)
-                    cmdArgs.push("-codesign=" + product.macdeployqt.signingIdentity);
+                if (product.macdeployqt.pluginspath !== undefined)
+                    cmdArgs.push("-pluginspath=" + product.macdeployqt.pluginspath);
 
-                if (product.macdeployqt.targetApps !== undefined && !product.buildconfig.enableMultiBundle && product.primaryApp)
+                if (product.buildconfig.enableCodeSigning) {
+                    if (product.macdeployqt.signForNotarization)
+                        cmdArgs.push("-sign-for-notarization=" + product.macdeployqt.signingIdentity);
+                    else
+                        cmdArgs.push("-codesign=" + product.macdeployqt.signingIdentity);
+                }
+
+                if (product.macdeployqt.targetApps !== undefined)
                 {
                     product.macdeployqt.targetApps.forEach(function(targetApp) {
-                        cmdArgs.push("-executable=\"" + installRoot + "/" + product.targetName + ".app/Contents/MacOS/" + targetApp + "\"");
+                        cmdArgs.push("-executable=" + FileInfo.joinPaths(installRoot, product.targetName + ".app", "Contents", "MacOS", targetApp));
                     });
                 }
 
-                var cmd = new Command(product.Qt.core.binPath + "/" + macdeployqtProgram, cmdArgs);
+                var macdeployqtProgramBinPath = product.Qt.core.binPath;
+                if (product.macdeployqt.macdeployqtProgramBinPath !== undefined)
+                    macdeployqtProgramBinPath = product.macdeployqt.macdeployqtProgramBinPath;
+
+                var cmd = new Command(macdeployqtProgramBinPath + "/" + macdeployqtProgram, cmdArgs);
                 cmd.jobPool = "macdeployqt";
                 cmd.description = "invoking '" + macdeployqtProgram;
                 cmd.stdoutFilePath = product.buildDirectory + "/" + product.macdeployqt.macdeployqtArtifact;

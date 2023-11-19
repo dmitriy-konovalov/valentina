@@ -4,7 +4,8 @@ import "qbs/imports/conan/ConanfileProbe.qbs" as ConanfileProbe
 
 Project {
     name: "Valentina"
-    minimumQbsVersion: "1.16"
+    minimumQbsVersion: "1.21"
+    qbsModuleProviders: ["Qt", "conan", "qbspkgconfig"]
 
     property bool enableConan: false
     property string minimumMacosVersion: undefined
@@ -25,6 +26,7 @@ Project {
         "src/src.qbs",
         "share/translations/translations.qbs",
         "share/translations/measurements.qbs",
+        "dmg.qbs"
     ]
     qbsSearchPaths: "qbs"
 
